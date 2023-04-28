@@ -95,8 +95,8 @@ const Header = () => {
                             <div className="col-12 col-md-6 mt-2 mt-md-0">
                                 <Search />
                             </div>
-                            <Link to="/cart" style={{ textDecoration: "none", marginLeft: "auto" }}>
-                                <span id="cart" className="ml-3">
+                            <Link to="/cart" style={{ textDecoration: "none", marginLeft: "" }}>
+                                <span id="cart" className="ml-2">
                                     Cart
                                 </span>
                                 <BsCart4 style={{ width: 30, height: 30, color: "white" }} />

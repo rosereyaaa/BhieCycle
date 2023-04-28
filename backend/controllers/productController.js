@@ -214,7 +214,7 @@ exports.createProductReview = async (req, res, next) => {
     })
 };
 
-exports.getProductReview = async (req, res, next) => {
+exports.getProductReviews = async (req, res, next) => {
     const product = await Product.findById(req.params.id);
 
     res.status(200).json({

@@ -72,11 +72,11 @@ const ProductDetails = () => {
     }
 
     if (success) {
-      alert.success("Reivew posted successfully");
+      notify("Review Added Successfully")
 
       dispatch({ type: NEW_REVIEW_RESET });
     }
-  }, [dispatch, alert, error, reviewError, id, success]);
+  }, [dispatch, error, reviewError, id, success]);
 
   const increaseQty = () => {
     const count = document.querySelector(".count");
