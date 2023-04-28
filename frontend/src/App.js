@@ -196,9 +196,29 @@ function App() {
             }
           />
 
-          <Route path="/ShopProduct/product/:id" element={<ProductDetails />} exact="true" />
-          <Route path="/ShopProduct" element={<ShopProduct />} exact="true" />
-          <Route path="/cart" element={<Cart />} exact="true" />
+          {/*  Routes for ordering products*/}
+          <Route path="/ShopProduct/product/:id"
+            element={
+              <ProtectedRoute>
+                <ProductDetails />
+              </ProtectedRoute>
+            }
+            exact="true" />
+          <Route path="/ShopProduct"
+            element={
+              <ProtectedRoute>
+                <ShopProduct />
+              </ProtectedRoute>
+            }
+            exact="true" />
+          <Route path="/search/:keyword" element={<ShopProduct />} exact="true" />
+          <Route path="/cart"
+            element={
+              <ProtectedRoute>
+                <Cart />
+              </ProtectedRoute>
+            }
+            exact="true" />
           <Route
             path="/shipping"
             element={

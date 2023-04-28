@@ -21,8 +21,8 @@ const {
 
 //Admin Access
 router.post("/product/new", isAuthenticatedUser, authorizeRoles("admin"), upload.array("images", 10), newProduct);
-router.get("/products", isAuthenticatedUser, authorizeRoles("admin"), getProducts);
-router.get("/product/:id", isAuthenticatedUser, authorizeRoles("admin"), getSingleProduct);
+router.get("/products", getProducts);
+router.get("/product/:id", getSingleProduct);
 router.put("/update/product/:id", isAuthenticatedUser, authorizeRoles("admin"), upload.array("images", 10), updateProduct);
 router.delete("/remove/product/:id", isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
 

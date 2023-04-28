@@ -1,13 +1,13 @@
 import React, { Fragment, useState } from "react";
 // import "../../App.css";
 import { Route, Link, Routes } from "react-router-dom";
-// import Search from "./Search";
+import Search from "./Search";
 import { logout, loadUser } from "../../actions/userActions";
 import "../../App.css";
 import { toast } from "react-toastify";
 import { useDispatch, useSelector } from "react-redux";
 import "react-toastify/dist/ReactToastify.css";
-import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, Menu, MenuItem, Divider } from "@mui/material";
+import { AppBar, Toolbar, Typography, Button, IconButton, Avatar, Menu, MenuItem, Divider, TextField } from "@mui/material";
 import { BsCart4 } from 'react-icons/bs';
 
 const Header = () => {
@@ -65,23 +65,13 @@ const Header = () => {
         <Fragment>
             <AppBar style={headerStyle}>
                 <Toolbar>
-                    {/* <nav className="navbar row"> */}
-                    <div className="col-12 col-md-3">
-                        <div className="navbar-brand">
-                            <Link to="/">
-                                <img src="/images/BhieCycle -logo.png" />
-                            </Link>
-                        </div>
-                    </div>
+                    <Link to="/">
+                        <img src="/images/BhieCycle -logo.png" width="100" />
+                    </Link>
 
-                    {/* <div className="col-12 col-md-6 mt-2 mt-md-0">
-                <Search />
-                </div> */}
-
-                    {/* <div className="col-12 col-md-3 mt-4 mt-md-0 text-center"> */}
                     {user ? (
                         <Fragment>
-                            <IconButton
+                            {/* <IconButton
                                 size="medium"
                                 edge="start"
                                 color="inherit"
@@ -89,15 +79,23 @@ const Header = () => {
                                 sx={{ marginRight: 2 }}
                             >
                                 <i class="fa fa-bars"></i>
-                                {/* <MenuIcon /> */}
-                            </IconButton>
+                                <MenuIcon />
+                            </IconButton> */}
 
-                            <Typography>Bhie-Cycle</Typography>
+                            {/* <Typography>Bhie-Cycle</Typography> */}
                             <Button color="inherit" href="/admin/products"> Products </Button>
                             <Button color="inherit" href="/services"> Services </Button>
                             <Button color="inherit" href="/admin/users"> Users </Button>
-                            <Button color="inherit" href="/ShopProduct">Shopping Cart </Button>
-                            <Link to="/cart" style={{ textDecoration: "none" }}>
+                            <Button color="inherit" href="/ShopProduct" >Shopping Cart </Button>
+                            {/* <TextField
+                                variant="outlined"
+                                placeholder={<Search />}
+                                sx={{ width: '50%' }}
+                            /> */}
+                            <div className="col-12 col-md-6 mt-2 mt-md-0">
+                                <Search />
+                            </div>
+                            <Link to="/cart" style={{ textDecoration: "none", marginLeft: "auto" }}>
                                 <span id="cart" className="ml-3">
                                     Cart
                                 </span>
@@ -106,7 +104,7 @@ const Header = () => {
                                     {cartItems.length}
                                 </span>
                             </Link>
-                            <Button sx={{ marginLeft: "auto" }} color="inherit" onClick={handleClick}>
+                            <Button color="inherit" onClick={handleClick}>
                                 <Avatar src={user.avatar && user.avatar.url}
                                     alt={user && user.name} sx={{ width: 56, height: 56, marginLeft: "" }}>
                                 </Avatar>
