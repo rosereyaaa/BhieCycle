@@ -70,6 +70,7 @@ exports.myOrders = async (req, res, next) => {
     });
 };
 
+//Admin Access
 exports.allOrders = async (req, res, next) => {
     const orders = await Order.find();
 
@@ -90,6 +91,14 @@ exports.allOrders = async (req, res, next) => {
     });
 };
 
+async function updateStock(id, quantity) {
+    const product = await Product.findById(id);
+    // console.log(product);
+    product.stock = product.stock - quantity;
+
+    await product.save({ validateBeforeSave: false });
+}
+
 exports.updateOrder = async (req, res, next) => {
     const order = await Order.findById(req.params.id);
 
@@ -109,14 +118,6 @@ exports.updateOrder = async (req, res, next) => {
         success: true,
     });
 };
-
-async function updateStock(id, quantity) {
-    const product = await Product.findById(id);
-
-    product.stock = product.stock - quantity;
-
-    await product.save({ validateBeforeSave: false });
-}
 
 exports.deleteOrder = async (req, res, next) => {
     const order = await Order.findById(req.params.id);

@@ -19,6 +19,7 @@ import ListItemText from '@mui/material/ListItemText';
 import { MenuItem, Button, Menu, Avatar } from "@mui/material";
 import MenuIcon from '@mui/icons-material/Menu';
 import PersonIcon from '@mui/icons-material/Person';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
@@ -100,6 +101,21 @@ function Sidebar(props) {
                             >
                                 <HomeRepairServiceIcon />
                                 <ListItemText sx={{ paddingLeft: 3 }}>Services</ListItemText>
+                            </IconButton>
+                        </ListItemIcon>
+                    </ListItemButton>
+                </ListItem>
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon style={iconStyle}>
+                            <IconButton
+                                size="medium"
+                                color="inherit"
+                                component={Link}
+                                to="/admin/orders"
+                            >
+                                <ShoppingCartIcon />
+                                <ListItemText sx={{ paddingLeft: 3 }}>Orders</ListItemText>
                             </IconButton>
                         </ListItemIcon>
                     </ListItemButton>

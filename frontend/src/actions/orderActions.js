@@ -133,7 +133,6 @@ export const updateOrder = (id, orderData) => async (dispatch) => {
 
         dispatch({
             type: UPDATE_ORDER_SUCCESS,
-
             payload: data.success,
         });
     } catch (error) {
