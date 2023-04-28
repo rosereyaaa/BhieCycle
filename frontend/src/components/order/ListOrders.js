@@ -91,7 +91,7 @@ const ListOrders = () => {
 
         status:
           order.orderStatus &&
-          String(order.orderStatus).includes("Delivered") ? (
+            String(order.orderStatus).includes("Delivered") ? (
             <p style={{ color: "green" }}>{order.orderStatus}</p>
           ) : (
             <p style={{ color: "red" }}>{order.orderStatus}</p>
@@ -123,6 +123,7 @@ const ListOrders = () => {
           bordered
           striped
           hover
+          noBottomColumns
         />
       )}
     </Fragment>
