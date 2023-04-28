@@ -7,6 +7,7 @@ import { MDBDataTable } from "mdbreact";
 import MetaData from "../layout/MetaData";
 
 import Loader from "../layout/Loader";
+import Header from "../layout/Header";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -110,22 +111,25 @@ const ListOrders = () => {
 
   return (
     <Fragment>
-      <MetaData title={"My Orders"} />
+      <Header /><br/><br/><br/>
+      <div class="container">
+        <MetaData title={"My Orders"} />
 
-      <h1 className="my-5">My Orders</h1>
+        <h1 className="my-5">My Orders</h1>
 
-      {loading ? (
-        <Loader />
-      ) : (
-        <MDBDataTable
-          data={setOrders()}
-          className="px-3"
-          bordered
-          striped
-          hover
-          noBottomColumns
-        />
-      )}
+        {loading ? (
+          <Loader />
+        ) : (
+          <MDBDataTable
+            data={setOrders()}
+            className="px-3"
+            bordered
+            striped
+            hover
+            noBottomColumns
+          />
+        )}
+      </div>
     </Fragment>
   );
 };
