@@ -204,13 +204,7 @@ function App() {
               </ProtectedRoute>
             }
             exact="true" />
-          <Route path="/ShopProduct"
-            element={
-              <ProtectedRoute>
-                <ShopProduct />
-              </ProtectedRoute>
-            }
-            exact="true" />
+          <Route path="/ShopProduct" element={<ShopProduct />} exact="true" />
           <Route path="/search/:keyword" element={<ShopProduct />} exact="true" />
           <Route path="/cart"
             element={
