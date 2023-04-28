@@ -18,12 +18,14 @@ exports.registerUser = async (req, res, next) => {
     const { name,
         email,
         password,
+        role
 
     } = req.body;
     const user = await User.create({
         name,
         email,
         password,
+        role,
         avatar: {
             public_id: result.public_id,
             url: result.secure_url
@@ -322,25 +324,24 @@ exports.deleteUser = async (req, res, next) => {
 
 exports.googlelogin = async (req, res, next) => {
     console.log(req.body.response);
-    const userfind = await User.findOne({ googleId :req.body.response.id })
+    const userfind = await User.findOne({ googleId: req.body.response.id })
     if (!userfind) {
-      let createuser = await User.create({
-        name: req.body.response.name ,
-        email: req.body.response.email,
-        password: 'password',
-        avatar: {
-          public_id: 'avatars/rjeu182thkednbnlitqc',
-          url: req.body.response.picture,
-        },
-        googleId :req.body.response.id
-      });
-      var user = await User.findOne({ googleId :createuser.googleId })
-       sendToken(user, 200, res);
-      }
-  
-      else
-      {
-        const user = await User.findOne({ googleId :req.body.response.id })
+        let createuser = await User.create({
+            name: req.body.response.name,
+            email: req.body.response.email,
+            password: 'password',
+            avatar: {
+                public_id: 'avatars/rjeu182thkednbnlitqc',
+                url: req.body.response.picture,
+            },
+            googleId: req.body.response.id
+        });
+        var user = await User.findOne({ googleId: createuser.googleId })
         sendToken(user, 200, res);
-      }
+    }
+
+    else {
+        const user = await User.findOne({ googleId: req.body.response.id })
+        sendToken(user, 200, res);
+    }
 };

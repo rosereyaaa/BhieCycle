@@ -62,7 +62,7 @@ export const loadUser = () => async (dispatch) => {
     }
 };
 
-export const register = (userData) => async (dispatch) => {
+export const registers = (userData) => async (dispatch) => {
     for (var pair of userData.entries()) {
         console.log(pair[0] + ', ' + pair[1]);
     }
@@ -340,40 +340,40 @@ export const deleteUser = (id) => async (dispatch) => {
 export const glogin = (response) => async (dispatch) => {
     console.log(response);
     try {
-      dispatch({ type: GOOGLE_LOGIN_REQUEST });
-  
-      // const config = {
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //     "Access-Control-Allow-Credentials": true,
-      //     "withCredentials": true,
-      //   },
-      // };
-  
-      // const cookies = new Cookies();
-  
-      const { data } = await axios.post(`/api/v1/googlelogin`,
-        { response},
-       {withCredentials:true}
-      );
-  
-      console.log(data)
-      // cookies.set('token', data.token, { path: '/' });
-      // cookies.set('userid', data.user._id, { path: '/' });
-  
-  
-      localStorage.setItem("user",JSON.stringify(data.user));
-      dispatch({
-        type:  GOOGLE_LOGIN_SUCCESS,
-  
-        payload: data.user,
-  
-      });
+        dispatch({ type: GOOGLE_LOGIN_REQUEST });
+
+        // const config = {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //     "Access-Control-Allow-Credentials": true,
+        //     "withCredentials": true,
+        //   },
+        // };
+
+        // const cookies = new Cookies();
+
+        const { data } = await axios.post(`/api/v1/googlelogin`,
+            { response },
+            { withCredentials: true }
+        );
+
+        console.log(data)
+        // cookies.set('token', data.token, { path: '/' });
+        // cookies.set('userid', data.user._id, { path: '/' });
+
+
+        localStorage.setItem("user", JSON.stringify(data.user));
+        dispatch({
+            type: GOOGLE_LOGIN_SUCCESS,
+
+            payload: data.user,
+
+        });
     } catch (error) {
-      dispatch({
-        type:  GOOGLE_LOGIN_FAIL,
-  
-        payload: error.response.data.errMessage,
-      });
+        dispatch({
+            type: GOOGLE_LOGIN_FAIL,
+
+            payload: error.response.data.errMessage,
+        });
     }
-  };
+};

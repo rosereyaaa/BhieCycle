@@ -1,12 +1,13 @@
 import React, { Fragment, useState, useEffect } from "react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { register, clearErrors } from "../../actions/userActions";
+import { clearErrors, registers } from "../../actions/userActions";
 import { REGISTER_USER_RESET } from "../../constants/userConstants";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { Avatar, Button, FormGroup, Grid, Input, Paper, Stack, TextField, Typography } from "@mui/material";
+import { useForm } from "react-hook-form";
+import { Avatar, Button, FormGroup, Grid, Select, Paper, Stack, TextField, Typography, MenuItem } from "@mui/material";
 
 const NewUser = () => {
     // const [user, setUser] = useState({
@@ -24,6 +25,24 @@ const NewUser = () => {
     // const [avatar, setAvatar] = useState("");
     const [avatarPreview, setAvatarPreview] = useState(
         "/images/default_avatar.jpg"
+    );
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors }
+    } = useForm(
+        {
+            mode: "onChange",
+            defaultValues:
+            {
+                name: name,
+                email: email,
+                password: password,
+                role: role
+            }
+        }
     );
 
     const navigate = useNavigate();
@@ -61,16 +80,17 @@ const NewUser = () => {
     //     }
     // }, [dispatch, isAuthenticated, error, navigate]);
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const submitHandler = (data) => {
+        // e.preventDefault();
 
         const formData = new FormData();
-        formData.set("name", name);
-        formData.set("email", email);
-        formData.set("password", password);
+        formData.set("name", data.name);
+        formData.set("email", data.email);
+        formData.set("password", data.password);
+        formData.set("role", data.role);
         formData.set("avatar", avatar);
 
-        dispatch(register(formData));
+        dispatch(registers(formData));
     };
     const onChange = (e) => {
         if (e.target.name === "avatar") {
@@ -101,10 +121,14 @@ const NewUser = () => {
     //Paper CSS/Style
     const paperStyle = {
         padding: 100,
-        height: '70vh',
+        height: '100vh',
         width: 500,
         margin: "100px auto",
         backgroundColor: "#e2daeb"
+    }
+
+    const errorStyle = {
+        color: "red"
     }
 
     return (
@@ -114,20 +138,38 @@ const NewUser = () => {
                 <Paper elevation={10} style={paperStyle}>
                     <Typography variant='h3' align='center' padding='10px'>New User</Typography>
                     <form
-                        onSubmit={submitHandler}
+                        onSubmit={handleSubmit(submitHandler)}
                         encType="multipart/form-data"
                     >
                         <FormGroup>
                             <Stack spacing={2} alignItems='center'>
                                 <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
+                                    type='name'
+                                    onChange={(e) => setName(e.target.value)} fullWidth
+                                    {...register("name", {
+                                        required: "Name is required."
+                                    })}
+                                />
+                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+
                                 <TextField label='Email' variant='standard' id='email_field'
-                                    type='email' value={email}
-                                    onChange={(e) => setEmail(e.target.value)} fullWidth required />
+                                    type='email'
+                                    onChange={(e) => setEmail(e.target.value)} fullWidth
+                                    {...register("email", {
+                                        required: "Email is required."
+                                    })}
+                                />
+                                {errors.email && <Typography style={errorStyle} variant="body1">{errors.email.message}</Typography>}
+
                                 <TextField label='Password' variant='standard' id='password_field'
-                                    type='password' value={password}
-                                    onChange={(e) => setPassword(e.target.value)} fullWidth required />
+                                    type='password'
+                                    onChange={(e) => setPassword(e.target.value)} fullWidth
+                                    {...register("password", {
+                                        required: "Password is required."
+                                    })}
+                                />
+                                {errors.password && <Typography style={errorStyle} variant="body1">{errors.password.message}</Typography>}
+
                                 <div className="custom-file">
                                     <input
                                         type="file"

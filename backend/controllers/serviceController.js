@@ -23,7 +23,6 @@ exports.newService = async (req, res, next) => {
 
         imagesLinks.push({
             public_id: result.public_id,
-
             url: result.secure_url,
         });
     }

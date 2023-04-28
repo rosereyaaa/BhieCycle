@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../actions/productActions";
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
+import InfiniteScroll from 'react-infinite-scroll-component';
 import Slider, { Range, createSliderWithTooltip } from "rc-slider";
 import "rc-slider/assets/index.css";
 
@@ -125,13 +126,13 @@ const ShopProduct = ({ match }) => {
                                         </div>
                                     </div>
 
-                                    <div className="col-6 col-md-9">
+                                    {/* <div className="col-6 col-md-9">
                                         <div className="row">
                                             {products.map((product) => (
                                                 <Product key={product._id} product={product} col={4} />
                                             ))}
                                         </div>
-                                    </div>
+                                    </div> */}
                                 </Fragment>
                             ) : (
                                 products.map((product) => (
@@ -154,7 +155,42 @@ const ShopProduct = ({ match }) => {
                                 itemClass="page-item"
                                 linkClass="page-link"
                             />
+
+                            {/* <InfiniteScroll
+                                dataLength={products.length} //This is important field to render the next data
+                                next={() => fetchNextPage()}
+                                hasMore={true}
+                                loader={<Loader />}
+                                endMessage={
+                                    <p style={{ textAlign: 'center' }}>
+                                        <b>Yay! You have seen it all</b>
+                                    </p>
+                                }
+                            below props only if you need pull down functionality
+                            refreshFunction={this.refresh}
+                            pullDownToRefresh
+                            pullDownToRefreshThreshold={50}
+                            pullDownToRefreshContent={
+                                <h3 style={{ textAlign: 'center' }}>&#8595; Pull down to refresh</h3>
+                            }
+                            releaseToRefreshContent={
+                                <h3 style={{ textAlign: 'center' }}>&#8593; Release to refresh</h3>
+                            }
+                            >
+                                {products}
+                                <Fragment>
+                                    <div className="col-6 col-md-9">
+                                        <div className="row">
+                                            {products.map((product) => (
+                                                <Product key={product._id} product={product} col={4} />
+                                            ))}
+                                        </div>
+                                    </div>
+                                </Fragment>
+                            </InfiniteScroll> */}
                         </div>
+
+
                     )}
                 </Fragment>
             )}

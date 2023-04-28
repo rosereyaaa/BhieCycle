@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { newService, clearErrors } from "../../actions/serviceActions";
 import { NEW_SERVICE_RESET } from "../../constants/serviceConstants";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 // import Toast from "../layout/Toast";
 import { Button, FormGroup, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
@@ -17,7 +18,22 @@ const NewService = () => {
     const [description, setDescription] = useState("");
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
-
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors }
+    } = useForm(
+        {
+            mode: "onChange",
+            defaultValues:
+            {
+                name: name,
+                price: price,
+                description: description
+            }
+        }
+    );
     const dispatch = useDispatch();
 
     let navigate = useNavigate();
@@ -45,16 +61,16 @@ const NewService = () => {
         }
     }, [dispatch, error, success, navigate]);
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const submitHandler = (data) => {
+        // e.preventDefault();
 
         const formData = new FormData();
 
-        formData.set("name", name);
+        formData.set("name", data.name);
 
-        formData.set("price", price);
+        formData.set("price", data.price);
 
-        formData.set("description", description);
+        formData.set("description", data.description);
 
         images.forEach((image) => {
             formData.append("images", image);
@@ -100,6 +116,10 @@ const NewService = () => {
         backgroundColor: "#e2daeb"
     }
 
+    const errorStyle = {
+        color: "red"
+    }
+
     return (
         <Fragment>
             <MetaData title={"New Services"} />
@@ -107,28 +127,41 @@ const NewService = () => {
                 <Paper elevation={10} style={paperStyle}>
                     <Typography variant='h3' align='center' padding='10px'>New Services</Typography>
                     <form
-                        onSubmit={submitHandler}
+                        onSubmit={handleSubmit(submitHandler)}
                         encType="multipart/form-data"
                     >
                         <FormGroup>
                             <Stack spacing={2} alignItems='center'>
 
                                 <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
+                                    type='name'
+                                    onChange={(e) => setName(e.target.value)} fullWidth
+                                    {...register("name", {
+                                        required: "Name is required."
+                                    })}
+                                />
+                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+
                                 <TextField
                                     id="description_field"
                                     label="Description"
                                     multiline
                                     rows={4}
-                                    fullWidth required
-                                    value={description}
+                                    fullWidth
                                     onChange={(e) => setDescription(e.target.value)}
+                                    {...register("description", {
+                                        required: "Description is required."
+                                    })}
                                 />
+                                {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
 
                                 <TextField label='Price' variant='standard' id='price_field'
-                                    type='number' value={price}
-                                    onChange={(e) => setPrice(e.target.value)} fullWidth required />
+                                    type='number'
+                                    onChange={(e) => setPrice(e.target.value)} fullWidth
+                                    {...register("price", {
+                                        required: "Price is required."
+                                    })} />
+                                {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
 
                                 <div className="custom-file">
                                     <input

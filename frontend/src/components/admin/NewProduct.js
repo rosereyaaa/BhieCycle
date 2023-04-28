@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { newProduct, clearErrors } from "../../actions/productActions";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
 import { toast } from "react-toastify";
+import { useForm } from "react-hook-form";
 import "react-toastify/dist/ReactToastify.css";
 // import Toast from "../layout/Toast";
 import { Avatar, Button, FormGroup, Grid, Select, MenuItem, Paper, Stack, TextField, Typography, InputLabel } from "@mui/material";
@@ -20,6 +21,27 @@ const NewProduct = () => {
     const [types, setTypes] = useState("");
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
+
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors }
+    } = useForm(
+        {
+            mode: "onChange",
+            defaultValues:
+            {
+                name: name,
+                price: price,
+                description: description,
+                category: category,
+                stock: stock,
+                types: types
+            }
+        }
+    );
+
     const categories = [
         "Whole Built Bike",
         "Frames",
@@ -67,22 +89,22 @@ const NewProduct = () => {
         }
     }, [dispatch, error, success, navigate]);
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const submitHandler = (data) => {
+        // e.preventDefault();
 
         const formData = new FormData();
 
-        formData.set("name", name);
+        formData.set("name", data.name);
 
-        formData.set("price", price);
+        formData.set("price", data.price);
 
-        formData.set("description", description);
+        formData.set("description", data.description);
 
-        formData.set("category", category);
+        formData.set("category", data.category);
 
-        formData.set("stock", stock);
+        formData.set("stock", data.stock);
 
-        formData.set("types", types);
+        formData.set("types", data.types);
 
         images.forEach((image) => {
             formData.append("images", image);
@@ -128,6 +150,10 @@ const NewProduct = () => {
         backgroundColor: "#e2daeb"
     }
 
+    const errorStyle = {
+        color: "red"
+    }
+
     return (
         <Fragment>
             <MetaData title={"New Product"} />
@@ -135,20 +161,22 @@ const NewProduct = () => {
                 <Paper elevation={10} style={paperStyle}>
                     <Typography variant='h3' align='center' padding='10px'>New Products</Typography>
                     <form
-                        onSubmit={submitHandler}
+                        onSubmit={handleSubmit(submitHandler)}
                         encType="multipart/form-data"
                     >
                         <FormGroup>
-                            <Stack spacing={2} alignItems='center'>
+                            <Stack spacing={1} alignItems='center'>
 
                                 <TextField label="Type" fullWidth disabled variant="standard"></TextField>
                                 <Select
                                     labelId="types"
                                     label="Types"
                                     id="types_field"
-                                    value={types}
                                     onChange={(e) => setTypes(e.target.value)}
-                                    fullWidth required
+                                    fullWidth
+                                    {...register("types", {
+                                        required: "Types is required."
+                                    })}
                                 >
                                     {type.map((type) => (
                                         <MenuItem key={type} value={type}>
@@ -156,27 +184,41 @@ const NewProduct = () => {
                                         </MenuItem>
                                     ))}
                                 </Select>
+                                {errors.types && <Typography style={errorStyle} variant="body1">{errors.types.message}</Typography>}
+
+
                                 <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
+                                    type='name'
+                                    onChange={(e) => setName(e.target.value)} fullWidth
+                                    {...register("name", {
+                                        required: "Name is required."
+                                    })}
+                                />
+                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+
                                 <TextField
                                     id="description_field"
                                     label="Description"
                                     multiline
                                     rows={4}
-                                    fullWidth required
-                                    value={description}
+                                    fullWidth
                                     onChange={(e) => setDescription(e.target.value)}
+                                    {...register("description", {
+                                        required: "Description is required."
+                                    })}
                                 />
-                                {/* <InputLabel sx={{ textAlign: 'left', marginRight: '10px' }}>Categories</InputLabel> */}
+                                {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
+
                                 <TextField label="Category" fullWidth disabled variant="standard"></TextField>
                                 <Select
                                     labelId="category"
                                     label="Categories"
                                     id="category_field"
-                                    value={category}
                                     onChange={(e) => setCategory(e.target.value)}
-                                    fullWidth required
+                                    fullWidth
+                                    {...register("category", {
+                                        required: "Category is required."
+                                    })}
                                 >
                                     {categories.map((category) => (
                                         <MenuItem key={category} value={category}>
@@ -184,14 +226,23 @@ const NewProduct = () => {
                                         </MenuItem>
                                     ))}
                                 </Select>
+                                {errors.category && <Typography style={errorStyle} variant="body1">{errors.category.message}</Typography>}
 
                                 <TextField label='Price' variant='standard' id='price_field'
-                                    type='number' value={price}
-                                    onChange={(e) => setPrice(e.target.value)} fullWidth required />
+                                    type='number'
+                                    onChange={(e) => setPrice(e.target.value)} fullWidth
+                                    {...register("price", {
+                                        required: "Price is required."
+                                    })} />
+                                {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
 
                                 <TextField label='Stock' variant='standard' id='stock_field'
-                                    type='number' value={stock}
-                                    onChange={(e) => setStock(e.target.value)} fullWidth required />
+                                    type='number'
+                                    onChange={(e) => setStock(e.target.value)} fullWidth
+                                    {...register("stock", {
+                                        required: "Stock is required."
+                                    })} />
+                                {errors.stock && <Typography style={errorStyle} variant="body1">{errors.stock.message}</Typography>}
 
                                 <div className="custom-file">
                                     <input
