@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import MetaData from "../layout/MetaData";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import {
     updateProfile,
     loadUser,
@@ -11,6 +11,8 @@ import { UPDATE_PROFILE_RESET } from "../../constants/userConstants";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { Button, FormGroup, Grid, Paper, Stack, TextField, Typography } from "@mui/material";
+import Sidebar from "../admin/Sidebar";
+import Header from "../layout/Header";
 
 const UpdateProfile = () => {
 
@@ -114,66 +116,146 @@ const UpdateProfile = () => {
         backgroundColor: "#e2daeb"
     }
 
+    const gridStyle = {
+        paddingRight: 60,
+        paddingTop: 20
+    }
+
     return (
         <Fragment>
-            <MetaData title={"Update Profile"} />
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>Update Profile</Typography>
-                    <form
-                        onSubmit={submitHandler}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={4} alignItems='center'>
+            {user.role !== "admin" && (
+                <Fragment>
+                    <Header />
+                    <MetaData title={"Update Profile"} />
+                    <Grid style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>Update Profile</Typography>
+                            <form
+                                onSubmit={submitHandler}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={4} alignItems='center'>
 
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name' value={name}
+                                            onChange={(e) => setName(e.target.value)} fullWidth required />
 
-                                <TextField label='Email' variant='standard' type="email"
-                                    id="email_field" name="email" value={email}
-                                    onChange={(e) => setEmail(e.target.value)} fullWidth required />
-                                <div className="form-group">
-                                    <label htmlFor="avatar_upload">Avatar</label>
+                                        <TextField label='Email' variant='standard' type="email"
+                                            id="email_field" name="email" value={email}
+                                            onChange={(e) => setEmail(e.target.value)} fullWidth required />
+                                        <div className="form-group">
+                                            <label htmlFor="avatar_upload">Avatar</label>
 
-                                    <div className="d-flex align-items-center">
-                                        <div>
-                                            <figure className="avatar mr-3 item-rtl">
-                                                <img
-                                                    src={avatarPreview}
-                                                    // className="rounded-circle"
-                                                    alt="Avatar Preview"
-                                                    width="55"
-                                                    height="52"
-                                                />
-                                            </figure>
+                                            <div className="d-flex align-items-center">
+                                                <div>
+                                                    <figure className="avatar mr-3 item-rtl">
+                                                        <img
+                                                            src={avatarPreview}
+                                                            // className="rounded-circle"
+                                                            alt="Avatar Preview"
+                                                            width="55"
+                                                            height="52"
+                                                        />
+                                                    </figure>
+                                                </div>
+
+                                                <div className="custom-file">
+                                                    <input
+                                                        type="file"
+                                                        name="avatar"
+                                                        className="custom-file-input"
+                                                        id="customFile"
+                                                        accept="image/*"
+                                                        onChange={onChange}
+                                                    />
+
+                                                    <label className="custom-file-label" htmlFor="customFile">
+                                                        Choose Avatar
+                                                    </label>
+
+
+                                                </div>
+                                            </div>
                                         </div>
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update Profile</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </Fragment>
+            )}
+            {user.role == "admin" && (
+                <Fragment>
+                    <MetaData title={"Update Profile"} />
+                    <div className="row">
+                        <div className="col-12 col-md-2">
+                            <Sidebar />
+                        </div>
 
-                                        <div className="custom-file">
-                                            <input
-                                                type="file"
-                                                name="avatar"
-                                                className="custom-file-input"
-                                                id="customFile"
-                                                accept="image/*"
-                                                onChange={onChange}
-                                            />
+                        <div className="col-12 col-md-10">
+                            <Grid style={gridStyle}>
+                                <Paper elevation={10} style={paperStyle}>
+                                    <Typography variant='h3' align='center' padding='10px'>Update Profile</Typography>
+                                    <form
+                                        onSubmit={submitHandler}
+                                        encType="multipart/form-data"
+                                    >
+                                        <FormGroup>
+                                            <Stack spacing={4} alignItems='center'>
 
-                                            <label className="custom-file-label" htmlFor="customFile">
-                                                Choose Avatar
-                                            </label>
+                                                <TextField label='Name' variant='standard' id='name_field'
+                                                    type='name' value={name}
+                                                    onChange={(e) => setName(e.target.value)} fullWidth required />
+
+                                                <TextField label='Email' variant='standard' type="email"
+                                                    id="email_field" name="email" value={email}
+                                                    onChange={(e) => setEmail(e.target.value)} fullWidth required />
+                                                <div className="form-group">
+                                                    <label htmlFor="avatar_upload">Avatar</label>
+
+                                                    <div className="d-flex align-items-center">
+                                                        <div>
+                                                            <figure className="avatar mr-3 item-rtl">
+                                                                <img
+                                                                    src={avatarPreview}
+                                                                    // className="rounded-circle"
+                                                                    alt="Avatar Preview"
+                                                                    width="55"
+                                                                    height="52"
+                                                                />
+                                                            </figure>
+                                                        </div>
+
+                                                        <div className="custom-file">
+                                                            <input
+                                                                type="file"
+                                                                name="avatar"
+                                                                className="custom-file-input"
+                                                                id="customFile"
+                                                                accept="image/*"
+                                                                onChange={onChange}
+                                                            />
+
+                                                            <label className="custom-file-label" htmlFor="customFile">
+                                                                Choose Avatar
+                                                            </label>
 
 
-                                        </div>
-                                    </div>
-                                </div>
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update Profile</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update Profile</Button>
+                                            </Stack>
+                                        </FormGroup>
+                                    </form>
+                                </Paper>
+                            </Grid>
+                        </div>
+                    </div>
+                </Fragment>
+            )}
         </Fragment>
     );
 };

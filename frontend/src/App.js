@@ -28,6 +28,7 @@ import ForgotPassword from './components/user/ForgotPassword';
 import NewPassword from './components/user/NewPassword';
 
 //Components - Admin
+import Dashboard from './components/admin/Dashboard';
 import UsersList from './components/admin/UsersList';
 import NewUser from './components/admin/NewUser';
 import UpdateUser from './components/admin/UpdateUser'
@@ -120,6 +121,14 @@ function App() {
           />
 
           {/* Routes for admin */}
+          <Route
+            path="/admin/dashboard"
+            element={
+              <ProtectedRoute isAdmin={true}>
+                <Dashboard />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/admin/users"
             element={

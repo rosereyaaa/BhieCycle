@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-// import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
@@ -90,51 +90,63 @@ const UpdateUser = () => {
         backgroundColor: "#e2daeb"
     }
 
+    const gridStyle = {
+        paddingRight: 60,
+        paddingTop: 30
+    }
+
     return (
         <Fragment>
-            <MetaData title={`Update User`} />
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>Update User</Typography>
-                    <form
-                        onSubmit={submitHandler}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={2} alignItems='center'>
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
-                                <TextField
-                                    id="email_field"
-                                    label="Email"
-                                    variant="standard"
-                                    fullWidth required
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
-                                />
-                                <TextField label="Role" fullWidth disabled variant="standard"></TextField>
-                                <Select
-                                    labelId="roles"
-                                    label="Role"
-                                    id="role_field"
-                                    value={role}
-                                    onChange={(e) => setRole(e.target.value)}
-                                    fullWidth required
-                                >
-                                    {roles.map((roles) => (
-                                        <MenuItem key={roles} value={roles}>
-                                            {roles}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
+            <div className="row">
+                <div className="col-12 col-md-2">
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-10">
+                    <MetaData title={`Update User`} />
+                    <Grid style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>Update User</Typography>
+                            <form
+                                onSubmit={submitHandler}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={2} alignItems='center'>
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name' value={name}
+                                            onChange={(e) => setName(e.target.value)} fullWidth required />
+                                        <TextField
+                                            id="email_field"
+                                            label="Email"
+                                            variant="standard"
+                                            fullWidth required
+                                            value={email}
+                                            onChange={(e) => setEmail(e.target.value)}
+                                        />
+                                        <TextField label="Role" fullWidth disabled variant="standard"></TextField>
+                                        <Select
+                                            labelId="roles"
+                                            label="Role"
+                                            id="role_field"
+                                            value={role}
+                                            onChange={(e) => setRole(e.target.value)}
+                                            fullWidth required
+                                        >
+                                            {roles.map((roles) => (
+                                                <MenuItem key={roles} value={roles}>
+                                                    {roles}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
 
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update User</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update User</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         </Fragment>
     );
 };

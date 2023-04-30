@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import MetaData from "../layout/MetaData";
-// import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -128,90 +128,101 @@ const UpdateService = () => {
     //Paper CSS/Style
     const paperStyle = {
         padding: 40,
-        height: '130vh',
+        height: '90vh',
         width: 1000,
         margin: "100px auto",
         backgroundColor: "#e2daeb"
     }
 
+    const gridStyle = {
+        paddingRight: 50,
+    }
+
     return (
         <Fragment>
-            <MetaData title={"Update Service"} />
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>Update Service</Typography>
-                    <form
-                        onSubmit={submitHandler}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={2} alignItems='center'>
+            <div className="row">
+                <div className="col-12 col-md-2">
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-10">
+                    <MetaData title={"Update Service"} />
+                    <Grid style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>Update Service</Typography>
+                            <form
+                                onSubmit={submitHandler}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={2} alignItems='center'>
 
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name' value={name}
-                                    onChange={(e) => setName(e.target.value)} fullWidth required />
-                                <TextField
-                                    id="description_field"
-                                    label="Description"
-                                    multiline
-                                    rows={4}
-                                    fullWidth required
-                                    value={description}
-                                    onChange={(e) => setDescription(e.target.value)}
-                                />
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name' value={name}
+                                            onChange={(e) => setName(e.target.value)} fullWidth required />
+                                        <TextField
+                                            id="description_field"
+                                            label="Description"
+                                            multiline
+                                            rows={4}
+                                            fullWidth required
+                                            value={description}
+                                            onChange={(e) => setDescription(e.target.value)}
+                                        />
 
-                                <TextField label='Price' variant='standard' id='price_field'
-                                    type='number' value={price}
-                                    onChange={(e) => setPrice(e.target.value)} fullWidth required />
+                                        <TextField label='Price' variant='standard' id='price_field'
+                                            type='number' value={price}
+                                            onChange={(e) => setPrice(e.target.value)} fullWidth required />
 
-                                {/* <div className="custom-file">
+                                        {/* <div className="custom-file">
                                     <label>Images</label> */}
 
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        name="images"
-                                        className="custom-file-input"
-                                        id="customFile"
-                                        onChange={onChange}
-                                        multiple
-                                        fullWidth
-                                    />
+                                        <div className="custom-file">
+                                            <input
+                                                type="file"
+                                                name="images"
+                                                className="custom-file-input"
+                                                id="customFile"
+                                                onChange={onChange}
+                                                multiple
+                                                fullWidth
+                                            />
 
-                                    <label className="custom-file-label" htmlFor="customFile">
-                                        Choose Images
-                                    </label>
-                                </div>
+                                            <label className="custom-file-label" htmlFor="customFile">
+                                                Choose Images
+                                            </label>
+                                        </div>
 
-                                {oldImages &&
-                                    oldImages.map((img) => (
-                                        <img
-                                            key={img}
-                                            src={img.url}
-                                            alt={img.url}
-                                            className="mt-3 mr-2"
-                                            width="55"
-                                            height="52"
-                                        />
-                                    ))}
+                                        {oldImages &&
+                                            oldImages.map((img) => (
+                                                <img
+                                                    key={img}
+                                                    src={img.url}
+                                                    alt={img.url}
+                                                    className="mt-3 mr-2"
+                                                    width="55"
+                                                    height="52"
+                                                />
+                                            ))}
 
-                                {imagesPreview.map((img) => (
-                                    <img
-                                        src={img}
-                                        key={img}
-                                        alt="Images Preview"
-                                        className="mt-3 mr-2"
-                                        width="55"
-                                        height="52"
-                                    />
-                                ))}
-                                {/* </div> */}
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update Product</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                        {imagesPreview.map((img) => (
+                                            <img
+                                                src={img}
+                                                key={img}
+                                                alt="Images Preview"
+                                                className="mt-3 mr-2"
+                                                width="55"
+                                                height="52"
+                                            />
+                                        ))}
+                                        {/* </div> */}
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Update Product</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         </Fragment>
     );
 };

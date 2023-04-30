@@ -1,17 +1,10 @@
 import React, { Fragment, useEffect } from "react";
-
 import { Link, useParams } from "react-router-dom";
-
 import MetaData from "../layout/MetaData";
-
 import Loader from "../layout/Loader";
-
 import { useDispatch, useSelector } from "react-redux";
-
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";
-
 import { toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
 const OrderDetails = () => {
@@ -107,7 +100,7 @@ const OrderDetails = () => {
               <p
                 className={
                   order.orderStatus &&
-                  String(order.orderStatus).includes("Delivered")
+                    String(order.orderStatus).includes("Delivered")
                     ? "greenColor"
                     : "redColor"
                 }

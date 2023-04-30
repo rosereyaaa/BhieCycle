@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-// import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { newProduct, clearErrors } from "../../actions/productActions";
 import { NEW_PRODUCT_RESET } from "../../constants/productConstants";
@@ -154,116 +154,127 @@ const NewProduct = () => {
         color: "red"
     }
 
+    const gridStyle = {
+        paddingRight: 60,
+    }
+
     return (
         <Fragment>
-            <MetaData title={"New Product"} />
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>New Products</Typography>
-                    <form
-                        onSubmit={handleSubmit(submitHandler)}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={1} alignItems='center'>
+            <div className="row">
+                <div className="col-12 col-md-2">
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-10">
+                    <MetaData title={"New Product"} />
+                    <Grid style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>New Products</Typography>
+                            <form
+                                onSubmit={handleSubmit(submitHandler)}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={1} alignItems='center'>
 
-                                <TextField label="Type" fullWidth disabled variant="standard"></TextField>
-                                <Select
-                                    labelId="types"
-                                    label="Types"
-                                    id="types_field"
-                                    onChange={(e) => setTypes(e.target.value)}
-                                    fullWidth
-                                    {...register("types", {
-                                        required: "Types is required."
-                                    })}
-                                >
-                                    {type.map((type) => (
-                                        <MenuItem key={type} value={type}>
-                                            {type}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                                {errors.types && <Typography style={errorStyle} variant="body1">{errors.types.message}</Typography>}
+                                        <TextField label="Type" fullWidth disabled variant="standard"></TextField>
+                                        <Select
+                                            labelId="types"
+                                            label="Types"
+                                            id="types_field"
+                                            onChange={(e) => setTypes(e.target.value)}
+                                            fullWidth
+                                            {...register("types", {
+                                                required: "Types is required."
+                                            })}
+                                        >
+                                            {type.map((type) => (
+                                                <MenuItem key={type} value={type}>
+                                                    {type}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                        {errors.types && <Typography style={errorStyle} variant="body1">{errors.types.message}</Typography>}
 
 
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name'
-                                    onChange={(e) => setName(e.target.value)} fullWidth
-                                    {...register("name", {
-                                        required: "Name is required."
-                                    })}
-                                />
-                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name'
+                                            onChange={(e) => setName(e.target.value)} fullWidth
+                                            {...register("name", {
+                                                required: "Name is required."
+                                            })}
+                                        />
+                                        {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
 
-                                <TextField
-                                    id="description_field"
-                                    label="Description"
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    {...register("description", {
-                                        required: "Description is required."
-                                    })}
-                                />
-                                {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
+                                        <TextField
+                                            id="description_field"
+                                            label="Description"
+                                            multiline
+                                            rows={4}
+                                            fullWidth
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            {...register("description", {
+                                                required: "Description is required."
+                                            })}
+                                        />
+                                        {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
 
-                                <TextField label="Category" fullWidth disabled variant="standard"></TextField>
-                                <Select
-                                    labelId="category"
-                                    label="Categories"
-                                    id="category_field"
-                                    onChange={(e) => setCategory(e.target.value)}
-                                    fullWidth
-                                    {...register("category", {
-                                        required: "Category is required."
-                                    })}
-                                >
-                                    {categories.map((category) => (
-                                        <MenuItem key={category} value={category}>
-                                            {category}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                                {errors.category && <Typography style={errorStyle} variant="body1">{errors.category.message}</Typography>}
+                                        <TextField label="Category" fullWidth disabled variant="standard"></TextField>
+                                        <Select
+                                            labelId="category"
+                                            label="Categories"
+                                            id="category_field"
+                                            onChange={(e) => setCategory(e.target.value)}
+                                            fullWidth
+                                            {...register("category", {
+                                                required: "Category is required."
+                                            })}
+                                        >
+                                            {categories.map((category) => (
+                                                <MenuItem key={category} value={category}>
+                                                    {category}
+                                                </MenuItem>
+                                            ))}
+                                        </Select>
+                                        {errors.category && <Typography style={errorStyle} variant="body1">{errors.category.message}</Typography>}
 
-                                <TextField label='Price' variant='standard' id='price_field'
-                                    type='number'
-                                    onChange={(e) => setPrice(e.target.value)} fullWidth
-                                    {...register("price", {
-                                        required: "Price is required."
-                                    })} />
-                                {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
+                                        <TextField label='Price' variant='standard' id='price_field'
+                                            type='number'
+                                            onChange={(e) => setPrice(e.target.value)} fullWidth
+                                            {...register("price", {
+                                                required: "Price is required."
+                                            })} />
+                                        {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
 
-                                <TextField label='Stock' variant='standard' id='stock_field'
-                                    type='number'
-                                    onChange={(e) => setStock(e.target.value)} fullWidth
-                                    {...register("stock", {
-                                        required: "Stock is required."
-                                    })} />
-                                {errors.stock && <Typography style={errorStyle} variant="body1">{errors.stock.message}</Typography>}
+                                        <TextField label='Stock' variant='standard' id='stock_field'
+                                            type='number'
+                                            onChange={(e) => setStock(e.target.value)} fullWidth
+                                            {...register("stock", {
+                                                required: "Stock is required."
+                                            })} />
+                                        {errors.stock && <Typography style={errorStyle} variant="body1">{errors.stock.message}</Typography>}
 
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        className="custom-file-input"
-                                        id="customFile"
-                                        accept="images/*"
-                                        onChange={onChange}
-                                        multiple
-                                    />
-                                    <label className="custom-file-label" htmlFor="customFile">
-                                        Choose Avatar
-                                    </label>
-                                </div>
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create Product</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                        <div className="custom-file">
+                                            <input
+                                                type="file"
+                                                name="avatar"
+                                                className="custom-file-input"
+                                                id="customFile"
+                                                accept="images/*"
+                                                onChange={onChange}
+                                                multiple
+                                            />
+                                            <label className="custom-file-label" htmlFor="customFile">
+                                                Choose Avatar
+                                            </label>
+                                        </div>
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create Product</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         </Fragment>
     );
 };

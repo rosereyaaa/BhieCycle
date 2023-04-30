@@ -7,7 +7,7 @@ import Sidebar from "./Sidebar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
-import { Box, Typography, Button, Divider } from '@mui/material';
+import { Box, Grid, Typography, Button, Divider } from '@mui/material';
 
 import {
     allOrders,
@@ -143,7 +143,8 @@ const OrdersList = () => {
     };
 
     return (
-        <Box sx={{ height: 730, width: "90%", paddingTop: 5 }} backgroundColor="#f4effc">
+        // <Box sx={{ height: 1100, width: "90%", paddingTop: 5 }} backgroundColor="#f4effc">
+        <Grid sx={{ width: "95%", paddingTop: 5 }}>
             <Fragment>
                 <MetaData title={"All Orders"} />
 
@@ -174,7 +175,9 @@ const OrdersList = () => {
                     </div>
                 </div>
             </Fragment>
-        </Box>
+        </Grid>
+
+        // </Box>
     );
 };
 

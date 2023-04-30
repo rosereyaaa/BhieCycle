@@ -84,9 +84,7 @@ exports.allOrders = async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-
         totalAmount,
-
         orders,
     });
 };
@@ -132,3 +130,104 @@ exports.deleteOrder = async (req, res, next) => {
         success: true,
     });
 };
+
+//Admin Access - Charts 
+exports.salesPerMonth = async (req, res, next) => {
+    const salesPerMonth = await Order.aggregate([
+        {
+            $group: {
+                // _id: {month: { $month: "$paidAt" } },
+                _id: { year: { $year: "$paidAt" }, month: { $month: "$paidAt" } },
+                total: { $sum: "$totalPrice" },
+            },
+        },
+
+        {
+            $addFields: {
+                month: {
+                    $let: {
+                        vars: {
+                            monthsInString: [, 'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', ' Sept', 'Oct', 'Nov', 'Dec']
+                        },
+                        in: {
+                            $arrayElemAt: ['$$monthsInString', "$_id.month"]
+                        }
+                    }
+                }
+            }
+        },
+        { $sort: { "_id.month": 1 } },
+        {
+            $project: {
+                _id: 1,
+                month: 1,
+
+                total: 1,
+
+            }
+        }
+
+    ])
+    if (!salesPerMonth) {
+        return next(new ErrorHandler('error sales per month', 404))
+
+    }
+    // return console.log(customerSales)
+    res.status(200).json({
+        success: true,
+        salesPerMonth
+    })
+
+}
+
+exports.customerSales = async (req, res, next) => {
+    const customerSales = await Order.aggregate([
+
+        {
+            $lookup: {
+                from: 'users',
+                localField: 'user',
+                foreignField: '_id',
+                as: 'userDetails'
+            },
+        },
+
+        { $unwind: "$userDetails" },
+
+        {
+            $group: {
+                _id: "$user",
+                total: { $sum: "$totalPrice" },
+                doc: { "$first": "$$ROOT" },
+
+            }
+        },
+
+        {
+            $replaceRoot: {
+                newRoot: { $mergeObjects: [{ total: '$total' }, '$doc'] },
+            },
+        },
+
+        { $sort: { total: -1 } },
+        {
+            $project: {
+                _id: 0,
+                "userDetails.name": 1,
+                total: 1,
+
+            }
+        }
+
+    ])
+    if (!customerSales) {
+        return next(new ErrorHandler('error customer sales', 404))
+
+    }
+    // return console.log(customerSales)
+    res.status(200).json({
+        success: true,
+        customerSales
+    })
+
+}

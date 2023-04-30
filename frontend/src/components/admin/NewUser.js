@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useForm } from "react-hook-form";
+import Sidebar from "./Sidebar";
 import { Avatar, Button, FormGroup, Grid, Select, Paper, Stack, TextField, Typography, MenuItem } from "@mui/material";
 
 const NewUser = () => {
@@ -39,8 +40,7 @@ const NewUser = () => {
             {
                 name: name,
                 email: email,
-                password: password,
-                role: role
+                password: password
             }
         }
     );
@@ -87,7 +87,6 @@ const NewUser = () => {
         formData.set("name", data.name);
         formData.set("email", data.email);
         formData.set("password", data.password);
-        formData.set("role", data.role);
         formData.set("avatar", avatar);
 
         dispatch(registers(formData));
@@ -120,9 +119,9 @@ const NewUser = () => {
 
     //Paper CSS/Style
     const paperStyle = {
-        padding: 100,
-        height: '100vh',
-        width: 500,
+        padding: 90,
+        height: '80vh',
+        width: 800,
         margin: "100px auto",
         backgroundColor: "#e2daeb"
     }
@@ -131,64 +130,75 @@ const NewUser = () => {
         color: "red"
     }
 
+    const gridStyle = {
+        paddingRight: 60,
+    }
+
     return (
         <Fragment>
-            <MetaData title={"New User"} />
-            <Grid color='#f4effc'>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>New User</Typography>
-                    <form
-                        onSubmit={handleSubmit(submitHandler)}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={2} alignItems='center'>
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name'
-                                    onChange={(e) => setName(e.target.value)} fullWidth
-                                    {...register("name", {
-                                        required: "Name is required."
-                                    })}
-                                />
-                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+            <div className="row">
+                <div className="col-12 col-md-2">
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-10">
+                    <MetaData title={"New User"} />
+                    <Grid color='#f4effc' style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>New User</Typography>
+                            <form
+                                onSubmit={handleSubmit(submitHandler)}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={2} alignItems='center'>
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name'
+                                            onChange={(e) => setName(e.target.value)} fullWidth
+                                            {...register("name", {
+                                                required: "Name is required."
+                                            })}
+                                        />
+                                        {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
 
-                                <TextField label='Email' variant='standard' id='email_field'
-                                    type='email'
-                                    onChange={(e) => setEmail(e.target.value)} fullWidth
-                                    {...register("email", {
-                                        required: "Email is required."
-                                    })}
-                                />
-                                {errors.email && <Typography style={errorStyle} variant="body1">{errors.email.message}</Typography>}
+                                        <TextField label='Email' variant='standard' id='email_field'
+                                            type='email'
+                                            onChange={(e) => setEmail(e.target.value)} fullWidth
+                                            {...register("email", {
+                                                required: "Email is required."
+                                            })}
+                                        />
+                                        {errors.email && <Typography style={errorStyle} variant="body1">{errors.email.message}</Typography>}
 
-                                <TextField label='Password' variant='standard' id='password_field'
-                                    type='password'
-                                    onChange={(e) => setPassword(e.target.value)} fullWidth
-                                    {...register("password", {
-                                        required: "Password is required."
-                                    })}
-                                />
-                                {errors.password && <Typography style={errorStyle} variant="body1">{errors.password.message}</Typography>}
+                                        <TextField label='Password' variant='standard' id='password_field'
+                                            type='password'
+                                            onChange={(e) => setPassword(e.target.value)} fullWidth
+                                            {...register("password", {
+                                                required: "Password is required."
+                                            })}
+                                        />
+                                        {errors.password && <Typography style={errorStyle} variant="body1">{errors.password.message}</Typography>}
 
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        className="custom-file-input"
-                                        id="customFile"
-                                        accept="images/*"
-                                        onChange={onChange}
-                                    />
-                                    <label className="custom-file-label" htmlFor="customFile">
-                                        Choose Avatar
-                                    </label>
-                                </div>
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create User</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                        <div className="custom-file">
+                                            <input
+                                                type="file"
+                                                name="avatar"
+                                                className="custom-file-input"
+                                                id="customFile"
+                                                accept="images/*"
+                                                onChange={onChange}
+                                            />
+                                            <label className="custom-file-label" htmlFor="customFile">
+                                                Choose Avatar
+                                            </label>
+                                        </div>
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create User</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         </Fragment>
     );
 };

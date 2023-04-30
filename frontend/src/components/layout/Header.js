@@ -83,10 +83,7 @@ const Header = () => {
                             </IconButton> */}
 
                             {/* <Typography>Bhie-Cycle</Typography> */}
-                            <Button color="inherit" href="/admin/products"> Products </Button>
-                            <Button color="inherit" href="/services"> Services </Button>
-                            <Button color="inherit" href="/admin/users"> Users </Button>
-                            <Button color="inherit" href="/ShopProduct" >Shopping Cart </Button>
+                            <Button color="inherit" href="/ShopProduct" >Shop Products </Button>
                             {/* <TextField
                                 variant="outlined"
                                 placeholder={<Search />}
@@ -95,7 +92,7 @@ const Header = () => {
                             <div className="col-12 col-md-6 mt-2 mt-md-0">
                                 <Search />
                             </div>
-                            <Link to="/cart" style={{ textDecoration: "none", marginLeft: "" }}>
+                            <Link to="/cart" style={{ textDecoration: "none", marginLeft: "auto" }}>
                                 <span id="cart" className="ml-2">
                                     Cart
                                 </span>

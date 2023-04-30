@@ -1,4 +1,5 @@
 const Product = require("../models/product");
+const Order = require('../models/order');
 const APIFeatures = require("../utils/apiFeatures.js");
 const ErrorHandler = require("../utils/errorHandler");
 const cloudinary = require("cloudinary");
@@ -51,15 +52,15 @@ exports.getProducts = async (req, res, next) => {
 
     // let products = await apiFeatures.query;
 
-    apiFeatures.pagination(resPerPage);
+    // apiFeatures.pagination(resPerPage);
     products = await apiFeatures.query;
     let filteredProductsCount = products.length;
 
     res.status(200).json({
         success: true,
-        productsCount,
-        resPerPage,
-        filteredProductsCount,
+        // productsCount,
+        // resPerPage,
+        // filteredProductsCount,
         products,
     });
 
@@ -249,3 +250,76 @@ exports.deleteReview = async (req, res, next) => {
         success: true
     })
 };
+
+//Chart
+exports.productCount = async (req, res, next) => {
+    const products = await Product.aggregate([
+        {
+            $group: {
+                _id: "$name",
+                totalStock: { $sum: "$stock" }
+            }
+        }
+    ]);
+
+    if (!products) {
+        return next(new ErrorHandler("No products found", 404));
+    }
+
+    const result = products.map(product => ({
+        name: product._id,
+        totalStock: product.totalStock
+    }));
+
+    res.status(200).json({
+        success: true,
+        productStock: result
+        // totalProducts
+        // result
+    });
+}
+
+// const totalSales = await Order.aggregate([
+//     {
+//         $group: {
+//             _id: null,
+//             total: { $sum: "$itemsPrice" }
+
+//         },
+//     },
+// ])
+// const sales = await Order.aggregate([
+//     { $project: { _id: 0, "orderItems": 1, totalPrice: 1 } },
+//     { $unwind: "$orderItems" },
+//     {
+//         $group: {
+//             // _id: {month: { $month: "$paidAt" } },
+//             _id: { product: "$orderItems.name" },
+//             // total: {$sum: {$multiply: [ "$orderItemsprice", "$orderItemsquantity" ]}}
+//             total: { $sum: { $multiply: ["$orderItems.price", "$orderItems.quantity"] } }
+//         },
+//     },
+// ])
+
+// if (!totalSales) {
+//     return next(new ErrorHandler('error sales ', 404))
+// }
+// if (!sales) {
+//     return next(new ErrorHandler('error sales ', 404))
+// }
+// let totalPercentage = {}
+// totalPercentage = sales.map(item => {
+
+//     console.log(((item.total / totalSales[0].total) * 100).toFixed(2))
+//     percent = Number(((item.total / totalSales[0].total) * 100).toFixed(2))
+//     total = {
+//         name: item._id.product,
+//         percent
+//     }
+//     return total
+// })
+// // return console.log(totalPercentage)
+// res.status(200).json({
+//     success: true,
+//     totalPercentage,
+    // })

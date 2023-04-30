@@ -15,34 +15,34 @@ import { FcGoogle } from 'react-icons/fc'
 import { Grid, Paper, Stack, TextField, FormGroup, Button, Typography, Divider } from '@mui/material';
 
 const Login = () => {
-    const [ user, setUser ] = useState([]);
-    const [ profile, setProfile ] = useState([]);
+    const [user, setUser] = useState([]);
+    const [profile, setProfile] = useState([]);
 
     const googlelogin = useGoogleLogin({
-      onSuccess: (codeResponse) => setUser(codeResponse),
-      onError: (error) => console.log('Login Failed:', error)
+        onSuccess: (codeResponse) => setUser(codeResponse),
+        onError: (error) => console.log('Login Failed:', error)
     });
 
     useEffect(
-      () => {
-          if (user) {
-              axios
-                  .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
-                      headers: {
-                          Authorization: `Bearer ${user.access_token}`,
-                          Accept: 'application/json'
-                      }
-                  })
-                  .then((res) => {
-                      // setProfile(res.data);
-                      // console.log(res.data);
-                      dispatch(glogin(res.data))
-                  })
-                  .catch((err) => console.log(err));
-          }
-      },
-      [ user ]
-  );
+        () => {
+            if (user) {
+                axios
+                    .get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${user.access_token}`, {
+                        headers: {
+                            Authorization: `Bearer ${user.access_token}`,
+                            Accept: 'application/json'
+                        }
+                    })
+                    .then((res) => {
+                        // setProfile(res.data);
+                        // console.log(res.data);
+                        dispatch(glogin(res.data))
+                    })
+                    .catch((err) => console.log(err));
+            }
+        },
+        [user]
+    );
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -86,7 +86,7 @@ const Login = () => {
             // navigate(redirect.get('redirect'), {replace: true})
             navigate(`/${redirect}`, { replace: true });
         } else if (isAuthenticated) {
-            navigate("/");
+            navigate("/admin/dashboard");
             notify("Login Successfully")
         }
 
@@ -136,8 +136,8 @@ const Login = () => {
                                     </Stack>
                                     <Button size="large" variant="contained" color="secondary" fullWidth type="submit" onClick={submitHandler}>Login</Button>
                                     {/* <Divider /> */}
-                                    <Button size="large" variant="contained" color="secondary" fullWidth type="submit"onClick={() => googlelogin()}>
-                                        <FcGoogle style={{ width: 30, height: 30 }}/>&nbsp;&nbsp;&nbsp; <span>Login with Google</span>
+                                    <Button size="large" variant="contained" color="secondary" fullWidth type="submit" onClick={() => googlelogin()}>
+                                        <FcGoogle style={{ width: 30, height: 30 }} />&nbsp;&nbsp;&nbsp; <span>Login with Google</span>
                                     </Button>
                                     <Button size="large" variant="contained" color="secondary" fullWidth type="submit" href="/register">Register</Button>
                                 </Stack>

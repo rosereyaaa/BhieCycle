@@ -15,7 +15,8 @@ const {
     deleteProduct,
     createProductReview,
     getProductReviews,
-    deleteReview
+    deleteReview,
+    productCount
     // getSingleProduct,
 } = require("../controllers/productController");
 
@@ -25,6 +26,9 @@ router.get("/products", getProducts);
 router.get("/product/:id", getSingleProduct);
 router.put("/update/product/:id", isAuthenticatedUser, authorizeRoles("admin"), upload.array("images", 10), updateProduct);
 router.delete("/remove/product/:id", isAuthenticatedUser, authorizeRoles("admin"), deleteProduct);
+
+//Charts
+router.get('/admin/productschart/stock', productCount);
 
 //User Access 
 router.put("/create/review", isAuthenticatedUser, createProductReview);

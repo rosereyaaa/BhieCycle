@@ -23,6 +23,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import SportsMotorsportsIcon from '@mui/icons-material/SportsMotorsports';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
+import WidgetsIcon from '@mui/icons-material/Widgets';
 //
 import { Route, Link, Routes } from "react-router-dom";
 import { logout, loadUser } from "../../actions/userActions";
@@ -60,6 +61,21 @@ function Sidebar(props) {
             <Divider />
             <List>
                 <Typography variant="h6" sx={{ textAlign: 'center' }}>Components</Typography>
+                <ListItem disablePadding>
+                    <ListItemButton>
+                        <ListItemIcon style={iconStyle}>
+                            <IconButton
+                                size="medium"
+                                color="inherit"
+                                component={Link}
+                                to="/admin/dashboard"
+                            >
+                                <WidgetsIcon />
+                                <ListItemText sx={{ paddingLeft: 3 }}>Dashboard</ListItemText>
+                            </IconButton>
+                        </ListItemIcon>
+                    </ListItemButton>
+                </ListItem>
                 <ListItem disablePadding>
                     <ListItemButton>
                         <ListItemIcon style={iconStyle}>
@@ -127,7 +143,7 @@ function Sidebar(props) {
                                 size="medium"
                                 color="inherit"
                                 component={Link}
-                                to="/"
+                                to=""
                             >
                                 <BarChartIcon />
                                 <ListItemText sx={{ paddingLeft: 3 }}>Charts</ListItemText>
@@ -137,6 +153,9 @@ function Sidebar(props) {
                 </ListItem>
             </List>
             <Divider />
+            {/* <Link to="/">
+                <img src="/images/BhieCycle -logo.png" width="160" height="80" style={{ margin: "auto", padding: 10 }} />
+            </Link> */}
         </div>
     );
 
@@ -210,7 +229,7 @@ function Sidebar(props) {
                                 aria-label="menu"
                                 sx={{ marginRight: 2 }}
                                 component={Link}
-                                to="/"
+                                to="/admin/dashboard"
                             >
                                 <HomeIcon />
                             </IconButton>

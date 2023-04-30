@@ -13,6 +13,13 @@ body {
   margin: 0px;
   padding: 0px;
   overflow-x: hidden;
+  /* background-color: #f4effc; */
+}
+
+/* Cards on Dashboard */
+
+.bg-primary {
+  background-color: #F5D7DB;
 }
 
 /* Scroll Bar */

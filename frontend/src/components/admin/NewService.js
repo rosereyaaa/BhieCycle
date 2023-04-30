@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom";
 import MetaData from "../layout/MetaData";
-// import Sidebar from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { useDispatch, useSelector } from "react-redux";
 import { newService, clearErrors } from "../../actions/serviceActions";
 import { NEW_SERVICE_RESET } from "../../constants/serviceConstants";
@@ -110,7 +110,7 @@ const NewService = () => {
     //Paper CSS/Style
     const paperStyle = {
         padding: 40,
-        height: '130vh',
+        height: '100vh',
         width: 1000,
         margin: "100px auto",
         backgroundColor: "#e2daeb"
@@ -120,69 +120,80 @@ const NewService = () => {
         color: "red"
     }
 
+    const gridStyle = {
+        paddingRight: 50,
+    }
+
     return (
         <Fragment>
-            <MetaData title={"New Services"} />
-            <Grid>
-                <Paper elevation={10} style={paperStyle}>
-                    <Typography variant='h3' align='center' padding='10px'>New Services</Typography>
-                    <form
-                        onSubmit={handleSubmit(submitHandler)}
-                        encType="multipart/form-data"
-                    >
-                        <FormGroup>
-                            <Stack spacing={2} alignItems='center'>
+            <div className="row">
+                <div className="col-12 col-md-2">
+                    <Sidebar />
+                </div>
+                <div className="col-12 col-md-10">
+                    <MetaData title={"New Services"} />
+                    <Grid style={gridStyle}>
+                        <Paper elevation={10} style={paperStyle}>
+                            <Typography variant='h3' align='center' padding='10px'>New Services</Typography>
+                            <form
+                                onSubmit={handleSubmit(submitHandler)}
+                                encType="multipart/form-data"
+                            >
+                                <FormGroup>
+                                    <Stack spacing={2} alignItems='center'>
 
-                                <TextField label='Name' variant='standard' id='name_field'
-                                    type='name'
-                                    onChange={(e) => setName(e.target.value)} fullWidth
-                                    {...register("name", {
-                                        required: "Name is required."
-                                    })}
-                                />
-                                {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
+                                        <TextField label='Name' variant='standard' id='name_field'
+                                            type='name'
+                                            onChange={(e) => setName(e.target.value)} fullWidth
+                                            {...register("name", {
+                                                required: "Name is required."
+                                            })}
+                                        />
+                                        {errors.name && <Typography style={errorStyle} variant="body1">{errors.name.message}</Typography>}
 
-                                <TextField
-                                    id="description_field"
-                                    label="Description"
-                                    multiline
-                                    rows={4}
-                                    fullWidth
-                                    onChange={(e) => setDescription(e.target.value)}
-                                    {...register("description", {
-                                        required: "Description is required."
-                                    })}
-                                />
-                                {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
+                                        <TextField
+                                            id="description_field"
+                                            label="Description"
+                                            multiline
+                                            rows={4}
+                                            fullWidth
+                                            onChange={(e) => setDescription(e.target.value)}
+                                            {...register("description", {
+                                                required: "Description is required."
+                                            })}
+                                        />
+                                        {errors.description && <Typography style={errorStyle} variant="body1">{errors.description.message}</Typography>}
 
-                                <TextField label='Price' variant='standard' id='price_field'
-                                    type='number'
-                                    onChange={(e) => setPrice(e.target.value)} fullWidth
-                                    {...register("price", {
-                                        required: "Price is required."
-                                    })} />
-                                {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
+                                        <TextField label='Price' variant='standard' id='price_field'
+                                            type='number'
+                                            onChange={(e) => setPrice(e.target.value)} fullWidth
+                                            {...register("price", {
+                                                required: "Price is required."
+                                            })} />
+                                        {errors.price && <Typography style={errorStyle} variant="body1">{errors.price.message}</Typography>}
 
-                                <div className="custom-file">
-                                    <input
-                                        type="file"
-                                        name="avatar"
-                                        className="custom-file-input"
-                                        id="customFile"
-                                        accept="images/*"
-                                        onChange={onChange}
-                                        multiple
-                                    />
-                                    <label className="custom-file-label" htmlFor="customFile">
-                                        Choose Avatar
-                                    </label>
-                                </div>
-                                <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create Service</Button>
-                            </Stack>
-                        </FormGroup>
-                    </form>
-                </Paper>
-            </Grid>
+                                        <div className="custom-file">
+                                            <input
+                                                type="file"
+                                                name="avatar"
+                                                className="custom-file-input"
+                                                id="customFile"
+                                                accept="images/*"
+                                                onChange={onChange}
+                                                multiple
+                                            />
+                                            <label className="custom-file-label" htmlFor="customFile">
+                                                Choose Avatar
+                                            </label>
+                                        </div>
+                                        <Button id="register_button" type="submit" size="large" variant="contained" color="secondary" fullWidth>Create Service</Button>
+                                    </Stack>
+                                </FormGroup>
+                            </form>
+                        </Paper>
+                    </Grid>
+                </div>
+            </div>
         </Fragment>
     );
 };

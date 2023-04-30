@@ -8,6 +8,8 @@ const {
     allOrders,
     updateOrder,
     deleteOrder,
+    salesPerMonth,
+    customerSales
 } = require("../controllers/orderController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middlewares/auth");
@@ -26,4 +28,6 @@ router
     .route("/admin/order/:id")
     .delete(isAuthenticatedUser, authorizeRoles("admin"), deleteOrder);
 
+router.get('/orders/customer-sales', isAuthenticatedUser, authorizeRoles("admin"), customerSales);
+router.get('/orders/sales-per-month', isAuthenticatedUser, authorizeRoles("admin"), salesPerMonth);
 module.exports = router;
