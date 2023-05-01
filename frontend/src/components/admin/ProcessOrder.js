@@ -6,6 +6,9 @@ import Sidebar from "./Sidebar";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
+// import { useDispatch, useSelector } from "react-redux";
+import {jsPDF, setFontStyle, setTextColor} from "jspdf";
+import * as autoTable from 'jspdf-autotable'
 
 import {
     getOrderDetails,
@@ -57,8 +60,9 @@ const ProcessOrder = () => {
         }
 
         if (isUpdated) {
+            generateReceipt();
             successMsg("Order updated successfully");
-
+            // generateReceipt();
             dispatch({ type: UPDATE_ORDER_RESET });
         }
     }, [dispatch, error, isUpdated, orderId]);
@@ -78,8 +82,74 @@ const ProcessOrder = () => {
     const isPaid =
         paymentInfo && paymentInfo.status === "succeeded" ? true : false;
 
+        const generateInvoice = () => {
+            const doc = new jsPDF();
+ 
+            //Header
+            doc.addImage("/images/Banner.png", "PNG", 10,10,190,25);
+            doc.setFontSize(20);
+            doc.setTextColor(255,255,255);
+            doc.setFont(undefined, 'bold')
+            doc.text(`INVOICE`, 128, 23);
+
+            doc.setFontSize(9);
+            doc.setTextColor(255,255,255);
+            doc.text(`Invoice No: ${order._id}`, 128, 28);
+
+            const invoiceHeaders = [["Product Name", "Quantity", "Price"]];
+            const invoiceData = orderItems.map((item) => [
+                item.name,
+                item.quantity,
+                `$${item.price}.00`,
+            ]);
+
+            //Customer Details
+            doc.setFontSize(20);
+            doc.setTextColor(0,0,0);
+            doc.text(`INVOICE TO`, 15, 50);
+
+            doc.setFont(undefined, 'plain')
+            doc.setFontSize(15);
+            doc.text(`Customer Name:     ${user && user.name}`, 20, 60);
+            doc.text(`Contact Number:    ${shippingInfo.phoneNo}`, 20, 65);
+            doc.text(`Address:               ${shippingInfo.address}, ${shippingInfo.city}, ${shippingInfo.postalCode}, ${shippingInfo.country}`, 20, 70);
+            doc.text(`Amount to be Paid: $${totalPrice}`, 20, 75);
+            doc.setLineWidth(1);
+            doc.setDrawColor(103, 86, 140);
+            doc.line(10, 80, 200, 80);
+            
+            doc.setFont(undefined, 'bold')
+            doc.setFontSize(20);
+            doc.setTextColor(0,0,0);
+            doc.text(`ORDER DETAILS`, 80, 90);
+
+            //Table Design
+            doc.autoTable({
+                startY: 100,
+                head: invoiceHeaders,
+                body: invoiceData,
+                styles : { halign : 'center'}, 
+                headStyles :{fillColor : [103, 86, 140]}, 
+                alternateRowStyles: {fillColor : [231, 215, 252]}, 
+                tableLineColor: [124, 95, 240], 
+                tableLineWidth: 0.1,
+            });
+
+            //Footer
+            doc.setLineWidth(1);
+            doc.setDrawColor(103, 86, 140);
+            doc.line(10, 280, 200, 280);
+            doc.setFont(undefined, 'plain');
+            doc.setFontSize(15);
+            doc.text('Thank you for buying at Bhie-Cycle. Please come again! ', 55,285)
+    
+            // Save the PDF document
+            doc.save('BhieCycle-Order# '+`${order && order._id}`+'.pdf');
+        };
+
     return (
         <Fragment>
+            <br/><br/><br/>
             <MetaData title={`Process Order # ${order && order._id}`} />
 
             <div className="row">
@@ -202,6 +272,12 @@ const ProcessOrder = () => {
                                         onClick={() => updateOrderHandler(order._id)}
                                     >
                                         Update Status
+                                    </button>
+
+                                    <button className="btn btn-success btn-block" 
+                                        onClick={generateInvoice}
+                                    >
+                                        Print Receipt
                                     </button>
                                 </div>
                             </div>

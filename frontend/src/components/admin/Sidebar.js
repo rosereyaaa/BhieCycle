@@ -42,7 +42,7 @@ function Sidebar(props) {
         setMobileOpen(!mobileOpen);
     };
     const headerStyle = {
-        backgroundColor: "#67568c"
+        backgroundColor: "#67568c", 
     }
     const iconStyle = {
         color: "white"
@@ -57,8 +57,8 @@ function Sidebar(props) {
 
     const drawer = (
         <div>
-            <Toolbar />
-            <Divider />
+            <img src="/images/BhieCycle -logo.png" width="auto" style={{ display: 'block', marginLeft:'auto', marginRight:'auto', marginTop:'10px' }} />
+            {/* <Toolbar /> */}
             <List>
                 <Typography variant="h6" sx={{ textAlign: 'center' }}>Components</Typography>
                 <ListItem disablePadding>
@@ -143,7 +143,7 @@ function Sidebar(props) {
                                 size="medium"
                                 color="inherit"
                                 component={Link}
-                                to=""
+                                to="/admin/dashboard"
                             >
                                 <BarChartIcon />
                                 <ListItemText sx={{ paddingLeft: 3 }}>Charts</ListItemText>
@@ -229,7 +229,7 @@ function Sidebar(props) {
                                 aria-label="menu"
                                 sx={{ marginRight: 2 }}
                                 component={Link}
-                                to="/admin/dashboard"
+                                to="/"
                             >
                                 <HomeIcon />
                             </IconButton>
@@ -260,7 +260,7 @@ function Sidebar(props) {
                             // </Link>
                             <Fragment>
                                 {/* <Typography>Bhie-Cycle</Typography> */}
-                                <Typography component={Link} to="/" style={{ textDecoration: 'none' }} variant="h6" color="inherit" href="/" sx={{ fontSize: 24 }}>
+                                <Typography component={Link} to="http://localhost:3000/" style={{ textDecoration: 'none' }} variant="h6" color="inherit" href="/" sx={{ fontSize: 24 }}>
                                     Bhie-Cycle
                                 </Typography>
                                 <Button sx={{ marginLeft: "auto" }} color="inherit" href="/login">Login</Button>

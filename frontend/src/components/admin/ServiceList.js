@@ -173,9 +173,15 @@ const ServiceList = () => {
                     </div>
 
                     <div className="col-12 col-md-10">
-                        <Typography variant="h3" sx={{ paddingTop: 10 }}>Services</Typography>
-                        <br />
-                        <Divider sx={{ marginBottom: 3 }}></Divider>
+                        <br/><br/>
+                        <img src="/images/services-banner.gif" width="auto" /><br/>
+                        <hr
+                            style={{
+                                color: "#67568C",
+                                backgroundColor: "#67568C",
+                                height: 5
+                            }}
+                        />
                         <Button size="large" variant="contained" color="secondary"
                             sx={{ marginBottom: 2 }} href="/service/new"> New Service</Button>
                         {loading ? (

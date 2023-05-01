@@ -2,11 +2,7 @@ import React, { Fragment, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import MetaData from "../layout/MetaData";
 import Loader from "../layout/Loader";
-<<<<<<< HEAD
-=======
 import Header from "../layout/Header";
-
->>>>>>> 775325e4de8a43c49f414cbd7168cd0cf9a9165d
 import { useDispatch, useSelector } from "react-redux";
 import { getOrderDetails, clearErrors } from "../../actions/orderActions";
 import { toast } from "react-toastify";
@@ -104,7 +100,6 @@ const OrderDetails = () => {
 
                   <h4 className="my-4">Order Status:</h4>
 
-<<<<<<< HEAD
               <p
                 className={
                   order.orderStatus &&
@@ -115,18 +110,6 @@ const OrderDetails = () => {
               >
                 <b>{orderStatus}</b>
               </p>
-=======
-                  <p
-                    className={
-                      order.orderStatus &&
-                      String(order.orderStatus).includes("Delivered")
-                        ? "greenColor"
-                        : "redColor"
-                    }
-                  >
-                    <b>{orderStatus}</b>
-                  </p>
->>>>>>> 775325e4de8a43c49f414cbd7168cd0cf9a9165d
 
                   <h4 className="my-4">Order Items:</h4>
 

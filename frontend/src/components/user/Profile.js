@@ -21,7 +21,7 @@ const Profile = () => {
                         <Fragment>
                             <MetaData title={"Your Profile"} />
 
-                            <h2 className="mt-5 ml-5">My Profile</h2>
+                            {/* <h2 className="mt-5 ml-5">My Profile</h2> */}
 
                             <div className="row justify-content-around mt-5 user-info">
                                 <div className="col-12 col-md-3">
@@ -82,7 +82,15 @@ const Profile = () => {
                             </div>
                             <div className="col-12 col-md-10">
                                 <MetaData title={"Your Profile"} />
-                                <h2 className="mt-5 ml-5" style={{ paddingTop: 50 }}>My Profile</h2>
+                                <br/><br/>
+                                <img src="/images/profile-banner.gif" width="auto" /><br/>
+                                <hr
+                                    style={{
+                                        color: "#67568C",
+                                        backgroundColor: "#67568C",
+                                        height: 5
+                                    }}
+                                />
                                 <div className="row justify-content-around mt-5 user-info">
                                     <div className="col-12 col-md-3">
                                         <figure className="avatar avatar-profile">

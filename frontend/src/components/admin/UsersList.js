@@ -130,11 +130,19 @@ const UsersList = () => {
                         <Sidebar />
                     </div>
 
-                    <div className="col-12 col-md-10">
+                    <div className="col-18 col-md-10">
                         {/* <h1 style={{ paddingTop: 60 }}>All Products</h1> */}
-                        <Typography variant="h3" sx={{ paddingTop: 10 }}>Users</Typography>
-                        <br />
-                        <Divider sx={{ marginBottom: 3 }}></Divider>
+                        <br/><br/>
+                        <img src="/images/users-banner.gif" width="auto" /><br/>
+                        {/* <Typography variant="h3" sx={{ paddingTop: 10 }}>Users</Typography> */}
+                        {/* <Divider sx={{ marginBottom: 3 }}></Divider> */}
+                        <hr
+                                style={{
+                                    color: "#67568C",
+                                    backgroundColor: "#67568C",
+                                    height: 5
+                                }}
+                            />
                         <Button size="large" variant="contained" color="secondary"
                             sx={{ marginBottom: 2 }} href="/admin/users/new"> New User</Button>
                         {loading ? (

@@ -156,9 +156,15 @@ const OrdersList = () => {
                     <div className="col-12 col-md-10">
                         <Fragment>
                             {/* <h1 className="my-5">All Orders</h1> */}
-                            <Typography variant="h3" sx={{ paddingTop: 10 }}>All Orders</Typography>
-                            <br />
-                            <Divider sx={{ marginBottom: 3 }}></Divider>
+                            <br/><br/>
+                            <img src="/images/orders-banner.gif" width="auto" /><br/>
+                            <hr
+                                style={{
+                                    color: "#67568C",
+                                    backgroundColor: "#67568C",
+                                    height: 5
+                                }}
+                            />
                             {loading ? (
                                 <Loader />
                             ) : (

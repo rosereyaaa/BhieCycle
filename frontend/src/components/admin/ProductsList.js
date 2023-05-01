@@ -178,9 +178,15 @@ const ProductsList = () => {
 
                     <div className="col-12 col-md-10">
                         {/* <h1 style={{ paddingTop: 60 }}>All Products</h1> */}
-                        <Typography variant="h3" sx={{ paddingTop: 10 }}>Products</Typography>
-                        <br />
-                        <Divider sx={{ marginBottom: 3 }}></Divider>
+                        <br/><br/>
+                        <img src="/images/products-banner.gif" width="auto" /><br/>
+                        <hr
+                                style={{
+                                    color: "#67568C",
+                                    backgroundColor: "#67568C",
+                                    height: 5
+                                }}
+                            />
                         <Button size="large" variant="contained" color="secondary"
                             sx={{ marginBottom: 2 }} href="/product/new"> New Product</Button>
                         {loading ? (

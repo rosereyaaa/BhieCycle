@@ -2,7 +2,7 @@ import * as React from 'react';
 import Button from '../components/Button';
 import Typography from '../components/Typography';
 import ProductHeroLayout from './ProductHeroLayout';
-import background from "../views/background/BACKGROUND.png";
+import background from "../views/background/Header.gif";
 
 // const background =
 //   "https://img.freepik.com/free-vector/hand-painted-watercolor-pastel-sky-background_23-2148902771.jpg?w=2000";

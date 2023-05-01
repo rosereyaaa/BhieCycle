@@ -270,6 +270,7 @@ exports.productCount = async (req, res, next) => {
         name: product._id,
         totalStock: product.totalStock
     }));
+    console.log(result);
 
     res.status(200).json({
         success: true,

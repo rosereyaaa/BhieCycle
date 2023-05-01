@@ -48,9 +48,12 @@ const Dashboard = () => {
                     <Sidebar />
                 </div>
                 <div className="col-12 col-md-10">
-                    <h1 className="my-4">Dashboard</h1>
+                    <br/><br/><br/><br/>
+                    {/* <h1 className="my-4">Dashboard</h1> */}
+                    <img src="/images/dashboard-banner.gif" width="auto" /><br/>
                     {loading ? <Loader /> : (
                         <Fragment>
+                            <br/>
                             <MetaData title={'Admin Dashboard'} />
 
                             <div className="row pr-4">
@@ -116,13 +119,35 @@ const Dashboard = () => {
                                 </div>
                             </div>
 
+                            <hr
+                                style={{
+                                    color: "#67568C",
+                                    backgroundColor: "#67568C",
+                                    height: 5
+                                }}
+                            />
+
                             <Fragment>
                                 <UserSalesChart data={customerSales} />
                             </Fragment>
                             <Fragment>
+                                <hr
+                                    style={{
+                                        color: "#67568C",
+                                        backgroundColor: "#67568C",
+                                        height: 5
+                                    }}
+                                />
                                 <MonthlySalesChart data={salesPerMonth} />
                             </Fragment>
                             <Fragment>
+                                <hr
+                                    style={{
+                                        color: "#67568C",
+                                        backgroundColor: "#67568C",
+                                        height: 5
+                                    }}
+                                />
                                 <ProductCountChart data={productCount} />
                             </Fragment>
                         </Fragment>
