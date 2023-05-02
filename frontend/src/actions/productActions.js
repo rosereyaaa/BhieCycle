@@ -49,11 +49,11 @@ export const getProducts =
                 }
 
                 const { data } = await axios.get(link);
-                console.log(data);
-                console.log(link);
+                // console.log(data);
+                // console.log(link);
                 dispatch({
                     type: ALL_PRODUCTS_SUCCESS,
-                    payload: data,
+                    payload: data
                 });
             } catch (error) {
                 dispatch({
@@ -67,7 +67,7 @@ export const getAdminProducts = () => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_PRODUCTS_REQUEST });
 
-        const { data } = await axios.get(`/api/v1/products`);
+        const { data } = await axios.get(`/api/v1/admin/products`);
 
         dispatch({
             type: ADMIN_PRODUCTS_SUCCESS,

@@ -42,7 +42,7 @@ function Sidebar(props) {
         setMobileOpen(!mobileOpen);
     };
     const headerStyle = {
-        backgroundColor: "#67568c", 
+        backgroundColor: "#67568c",
     }
     const iconStyle = {
         color: "white"
@@ -57,7 +57,7 @@ function Sidebar(props) {
 
     const drawer = (
         <div>
-            <img src="/images/BhieCycle -logo.png" width="auto" style={{ display: 'block', marginLeft:'auto', marginRight:'auto', marginTop:'10px' }} />
+            <img src="/images/BhieCycle -logo.png" width="auto" style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop: '10px' }} />
             {/* <Toolbar /> */}
             <List>
                 <Typography variant="h6" sx={{ textAlign: 'center' }}>Components</Typography>
@@ -229,7 +229,7 @@ function Sidebar(props) {
                                 aria-label="menu"
                                 sx={{ marginRight: 2 }}
                                 component={Link}
-                                to="/"
+                                to="/admin/dashboard"
                             >
                                 <HomeIcon />
                             </IconButton>
