@@ -31,6 +31,9 @@ import {
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_RESET,
     DELETE_REVIEW_FAIL,
+    HOME_PRODUCTS_FAIL,
+    HOME_PRODUCTS_SUCCESS,
+    HOME_PRODUCTS_REQUEST
 
 } from "../constants/productConstants";
 
@@ -71,11 +74,30 @@ export const getAdminProducts = () => async (dispatch) => {
 
         dispatch({
             type: ADMIN_PRODUCTS_SUCCESS,
-            payload: data.products,
+            payload: data.products
         });
     } catch (error) {
         dispatch({
             type: ADMIN_PRODUCTS_FAIL,
+
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const getProduct = () => async (dispatch) => {
+    try {
+        dispatch({ type: HOME_PRODUCTS_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/admin/products`);
+
+        dispatch({
+            type: HOME_PRODUCTS_SUCCESS,
+            payload: data
+        });
+    } catch (error) {
+        dispatch({
+            type: HOME_PRODUCTS_FAIL,
 
             payload: error.response.data.message,
         });

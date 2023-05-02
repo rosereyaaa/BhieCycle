@@ -35,6 +35,7 @@ import UpdateUser from './components/admin/UpdateUser'
 import Sidebar from './components/admin/Sidebar'
 import OrdersList from "./components/admin/OrdersList";
 import ProcessOrder from './components/admin/ProcessOrder';
+import Products from './components/admin/Products';
 
 //Components - Products 
 import ProductsList from './components/admin/ProductsList';
@@ -232,6 +233,7 @@ function App() {
             }
             exact="true" />
           <Route path="/ShopProduct" element={<ShopProduct />} exact="true" />
+          <Route path="/Products" element={<Products />} exact="true" />
           <Route path="/search/:keyword" element={<ShopProduct />} exact="true" />
           <Route path="/cart"
             element={

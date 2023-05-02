@@ -32,12 +32,16 @@ import {
     DELETE_REVIEW_SUCCESS,
     DELETE_REVIEW_RESET,
     DELETE_REVIEW_FAIL,
+    HOME_PRODUCTS_FAIL,
+    HOME_PRODUCTS_SUCCESS,
+    HOME_PRODUCTS_REQUEST
 } from "../constants/productConstants";
 
 export const productsReducer = (state = { products: [] }, action) => {
     switch (action.type) {
         case ALL_PRODUCTS_REQUEST:
         case ADMIN_PRODUCTS_REQUEST:
+        case HOME_PRODUCTS_REQUEST:
             return {
                 loading: true,
                 products: [],
@@ -58,8 +62,16 @@ export const productsReducer = (state = { products: [] }, action) => {
                 products: action.payload,
             };
 
+        case HOME_PRODUCTS_SUCCESS:
+            return {
+                loading: false,
+                products: action.payload.products,
+                filteredProductsCount: action.payload.filteredProductsCount
+            };
+
         case ALL_PRODUCTS_FAIL:
         case ADMIN_PRODUCTS_FAIL:
+        case HOME_PRODUCTS_FAIL:
             return {
                 loading: false,
                 error: action.payload,

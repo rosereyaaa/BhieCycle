@@ -17,7 +17,8 @@ const {
     getProductReviews,
     deleteReview,
     productCount,
-    allProducts
+    allProducts,
+    Products
     // getSingleProduct,
 } = require("../controllers/productController");
 

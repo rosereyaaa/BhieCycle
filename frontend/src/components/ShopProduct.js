@@ -4,14 +4,13 @@ import Product from "./product/Product";
 import Loader from "./layout/Loader";
 import Header from "./layout/Header";
 import { useParams } from "react-router-dom";
-import InfiniteScroll from "react-infinite-scroll-component";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getProducts } from "../actions/productActions";
 import { Link } from "react-router-dom";
 import Pagination from "react-js-pagination";
 import Slider, { Range, createSliderWithTooltip } from "rc-slider";
 import "rc-slider/assets/index.css";
-import { Grid } from "@mui/material";
 
 //
 
@@ -21,6 +20,8 @@ const ShopProduct = ({ match }) => {
     const createSliderWithToolTip = Slider.createSliderWithToolTip;
     const Range = createSliderWithTooltip(Slider.Range);
     const [price, setPrice] = useState([1, 1000]);
+    const [category, setCategory] = useState("");
+    const [currentPage, setCurrentPage] = useState(1);
 
     const categories = [
         "Whole Built Bike",
@@ -47,91 +48,52 @@ const ShopProduct = ({ match }) => {
         filteredProductsCount,
     } = useSelector((state) => state.products);
 
-    const [category, setCategory] = useState("");
-    const [currentPage, setCurrentPage] = useState(1);
-
     let { keyword } = useParams();
 
     useEffect(() => {
-        if (error) {
-            console.log(error);
-        }
         dispatch(getProducts(keyword, currentPage, price, category));
-    }, [dispatch, error, keyword, price, currentPage, category]);
+        if (error) {
+            return alert.error(error);
+        }
+    }, [dispatch, alert, error, keyword, price, currentPage, category]);
 
     function setCurrentPageNo(pageNumber) {
         setCurrentPage(pageNumber);
     }
+
     let count = productsCount;
 
     if (keyword) {
         count = filteredProductsCount;
     }
 
-    console.log(keyword, count, filteredProductsCount, resPerPage);
+    console.log(keyword);
 
-    const [dataSource, setDataSource] = useState(products.slice(0, 3));
-    const [hasMore, setHasMore] = useState(true);
-
-    const fetchMoreData = () => {
-        if (dataSource.length < products.length) {
-            setTimeout(() => {
-                const newData = products.slice(0, dataSource.length + 3);
-                setDataSource(newData);
-            }, 500);
-        } else {
-            setHasMore(false);
-        }
-    };
-
-    console.log(dataSource)
     return (
         <Fragment>
             <Header /><br /><br /><br />
             <div class="container">
-                <MetaData title={"Buy Best Products Online"} />
-                <div className="row"></div>
                 {loading ? (
                     <Loader />
                 ) : (
                     <Fragment>
-                        <InfiniteScroll
-                            dataLength={dataSource.length}
-                            next={fetchMoreData}
-                            hasMore={hasMore}
-                            loader={<p>Loading...</p>}
-                            endMessage={
-                                <p style={{ textAlign: "center" }}>
-                                    <b>Yay! You have seen it all</b>
-                                </p>
-                            }>
-                            {products.map((product) => (
-                                <Product key={product._id} product={product} col={4} />
-                            ))}
-                            {/* <Grid
-                                templateColumns={
-                                    isLargerThan ? "repeat(3, 1fr)" : "repeat(2, 1fr)"
-                                }
-                                gap={"5px"}>
-                                
-                            </Grid> */}
-                        </InfiniteScroll>
-                        {/* <h1 id="products_heading" style={{ textAlign: "center" }}><span> Available Products & Accessories</span></h1> */}
-                        {/* <section id="products" className="container mt-5"> */}
-                        {/* <div className="row">
+                        <MetaData title={"Buy Best Products Online"} />
+                        <h1 id="products_heading" style={{ textAlign: "center" }}><span> Available Products & Accessories</span></h1>
+                        <section id="products" className="container mt-5">
+                            {/* <div className="row">
                             {products && products.map(product => (
                                 <Product key={product._id} product={product} />
                             ))}
                         </div> */}
-                        {/* <div className="row">
+                            <div className="row">
                                 {keyword ? (
                                     <Fragment>
                                         <div className="col-6 col-md-3 mt-5 mb-5">
                                             <div className="px-5">
                                                 <Range
                                                     marks={{
-                                                        1: '$1',
-                                                        1000: '$1000',
+                                                        1: $1,
+                                                        1000: $1000,
                                                     }}
                                                     min={1}
                                                     max={1000}
@@ -180,7 +142,7 @@ const ShopProduct = ({ match }) => {
                                 )}
                             </div>
                         </section>
-                        {productsCount && resPerPage <= count && (
+                        {resPerPage <= count && (
                             <div className="d-flex justify-content-center mt-5">
                                 <Pagination
                                     activePage={currentPage}
@@ -195,7 +157,7 @@ const ShopProduct = ({ match }) => {
                                     linkClass="page-link"
                                 />
                             </div>
-                        )} */}
+                        )}
                     </Fragment>
                 )}
             </div>

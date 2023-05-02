@@ -44,9 +44,11 @@ exports.newProduct = async (req, res, next) => {
 
 exports.allProducts = async (req, res, next) => {
     const products = await Product.find();
+    let filteredProductsCount = products.length;
 
     res.status(200).json({
         success: true,
+        filteredProductsCount,
         products
     });
 };
