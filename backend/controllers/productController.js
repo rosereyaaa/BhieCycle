@@ -52,14 +52,14 @@ exports.allProducts = async (req, res, next) => {
 };
 
 exports.getProducts = async (req, res, next) => {
-    // const resPerPage = 4;
+    const resPerPage = 4;
     const productsCount = await Product.countDocuments();
 
     const apiFeatures = new APIFeatures(Product.find(), req.query)
         .search()
         .filter();
 
-    // apiFeatures.pagination(resPerPage);
+    apiFeatures.pagination(resPerPage);
     const products = await apiFeatures.query;
     let filteredProductsCount = products.length;
 
@@ -69,7 +69,7 @@ exports.getProducts = async (req, res, next) => {
 
     res.status(200).json({
         success: true,
-        // resPerPage,
+        resPerPage,
         productsCount,
         filteredProductsCount,
         products,
