@@ -8,6 +8,7 @@ import {
     forgotPasswordReducer,
     allUsersReducer,
     userDetailsReducer,
+    customerSalesReducer
 } from "./reducers/userReducers";
 
 import {
@@ -29,6 +30,8 @@ import {
     serviceReviewsReducer,
     reviewsReducer
 } from "./reducers/serviceReducers";
+
+import { salesPerMonthReducer, productCountReducer } from './reducers/chartReducers';
 
 //Service Cart
 import { cartServiceReducers } from "./reducers/cartServiceReducers";
@@ -80,6 +83,7 @@ const reducer = combineReducers({
     user: userReducer,
     forgotPassword: forgotPasswordReducer,
     userDetails: userDetailsReducer,
+    customerSales: customerSalesReducer,
 
     //Product Reducer
     products: productsReducer,
@@ -118,6 +122,10 @@ const reducer = combineReducers({
     orderDetailss: orderDetailsReducers,
     allOrderss: allOrdersReducers,
     orders: orderReducers,
+
+    //Charts Reducer
+    salesPerMonth: salesPerMonthReducer,
+    productCount: productCountReducer,
 });
 
 const middlware = [thunk];
