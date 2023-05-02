@@ -61,6 +61,17 @@ import OrderDetails from "./components/order/OrderDetails";
 import ShopProduct from './components/ShopProduct';
 import ProductDetails from "./components/product/ProductDetails";
 
+//Shopping Cart Product
+import CartService from "./components/cart-service/CartService";
+import ShippingService from "./components/cart-service/ShippingService";
+import ConfirmOrderService from "./components/cart-service/ConfirmOrderService";
+import PaymentService from "./components/cart-service/PaymentService";
+import OrderSuccessService from "./components/cart-service/OrderSuccessService";
+import ListOrdersService from "./components/order/ListOrders";
+import OrderDetailsService from "./components/order/OrderDetails";
+import ShopService from './components/ShopService';
+import ServiceDetails from "./components/services/ServiceDetails";
+
 function App() {
   useEffect(() => {
     store.dispatch(loadUser());
@@ -293,6 +304,74 @@ function App() {
             }
           />
 
+          {/*  Routes for availing services*/}
+          <Route path="/ShopService/service/:id"
+            element={
+              <ProtectedRoute>
+                <ServiceDetails />
+              </ProtectedRoute>
+            }
+            exact="true" />
+            
+          <Route path="/ShopService" element={<ShopService />} exact="true" />
+          {/* <Route path="/search/:keyword" element={<ShopProduct />} exact="true" /> */}
+          <Route path="/cartService"
+            element={
+              <ProtectedRoute>
+                <CartService />
+              </ProtectedRoute>
+            }
+            exact="true" />
+          <Route
+            path="/shippingService"
+            element={
+              <ProtectedRoute>
+                <ShippingService />
+              </ProtectedRoute>
+            }
+            exact="true"
+          />
+          <Route
+            path="/confirmService"
+            element={
+              <ProtectedRoute>
+                <ConfirmOrderService />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/paymentService"
+            element={
+              <ProtectedRoute>
+                <PaymentService />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/successService"
+            element={
+              <ProtectedRoute>
+                <OrderSuccessService />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/ordersservice/me"
+            element={
+              <ProtectedRoute>
+                <ListOrdersService />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/orderservice/:id"
+            element={
+              <ProtectedRoute>
+                <OrderDetailsService />
+              </ProtectedRoute>
+            }
+          />
         </Routes>
         <ToastContainer />
         {!loading && (!isAuthenticated || user.role !== "admin") && <Footer />}

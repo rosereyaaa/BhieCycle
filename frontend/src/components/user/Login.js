@@ -85,7 +85,12 @@ const Login = () => {
         if (isAuthenticated && redirect === "shipping") {
             // navigate(redirect.get('redirect'), {replace: true})
             navigate(`/${redirect}`, { replace: true });
-        } else if (isAuthenticated) {
+        } 
+        else if (isAuthenticated && redirect === "shippingService") {
+            // navigate(redirect.get('redirect'), {replace: true})
+            navigate(`/${redirect}`, { replace: true });
+        } 
+        else if (isAuthenticated) {
             navigate("/admin/dashboard");
             notify("Login Successfully")
         }

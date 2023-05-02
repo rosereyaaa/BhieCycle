@@ -8,7 +8,6 @@ import {
     forgotPasswordReducer,
     allUsersReducer,
     userDetailsReducer,
-    customerSalesReducer
 } from "./reducers/userReducers";
 
 import {
@@ -31,8 +30,19 @@ import {
     reviewsReducer
 } from "./reducers/serviceReducers";
 
+//Service Cart
+import { cartServiceReducers } from "./reducers/cartServiceReducers";
+
+import {
+    newOrderReducers,
+    myOrdersReducers,
+    orderDetailsReducers,
+    allOrdersReducers,
+    orderReducers,
+} from "./reducers/orderServiceReducer";
+
+//Product Cart
 import { cartReducer } from "./reducers/cartReducers";
-import { salesPerMonthReducer, productCountReducer } from './reducers/chartReducers';
 
 import {
     newOrderReducer,
@@ -52,6 +62,15 @@ let initialState = {
             ? JSON.parse(localStorage.getItem("shippingInfo"))
             : {},
     },
+    carts: {
+        cartItemss: localStorage.getItem("cartItemss")
+            ? JSON.parse(localStorage.getItem("cartItemss"))
+            : [],
+
+        shippingInfos: localStorage.getItem("shippingInfos")
+            ? JSON.parse(localStorage.getItem("shippingInfos"))
+            : {},
+    },
 };
 
 const reducer = combineReducers({
@@ -61,7 +80,6 @@ const reducer = combineReducers({
     user: userReducer,
     forgotPassword: forgotPasswordReducer,
     userDetails: userDetailsReducer,
-    customerSales: customerSalesReducer,
 
     //Product Reducer
     products: productsReducer,
@@ -91,9 +109,15 @@ const reducer = combineReducers({
     allOrders: allOrdersReducer,
     order: orderReducer,
 
-    //Charts Reducer
-    salesPerMonth: salesPerMonthReducer,
-    productCount: productCountReducer,
+    //Service-Cart Reducer 
+    carts: cartServiceReducers,
+
+    //Service-Order Reducer
+    newOrders: newOrderReducers,
+    myOrderss: myOrdersReducers,
+    orderDetailss: orderDetailsReducers,
+    allOrderss: allOrdersReducers,
+    orders: orderReducers,
 });
 
 const middlware = [thunk];

@@ -6,10 +6,10 @@ import {
     SERVICE_DETAILS_SUCCESS,
     SERVICE_DETAILS_FAIL,
     CLEAR_ERRORS,
-    NEW_REVIEW_REQUEST,
-    NEW_REVIEW_SUCCESS,
-    NEW_REVIEW_RESET,
-    NEW_REVIEW_FAIL,
+    NEW_REVIEWS_REQUEST,
+    NEW_REVIEWS_SUCCESS,
+    NEW_REVIEWS_RESET,
+    NEW_REVIEWS_FAIL,
     ADMIN_SERVICES_REQUEST,
     ADMIN_SERVICES_SUCCESS,
     ADMIN_SERVICES_FAIL,
@@ -28,10 +28,10 @@ import {
     GET_REVIEWS_REQUEST,
     GET_REVIEWS_SUCCESS,
     GET_REVIEWS_FAIL,
-    DELETE_REVIEW_REQUEST,
-    DELETE_REVIEW_SUCCESS,
-    DELETE_REVIEW_RESET,
-    DELETE_REVIEW_FAIL,
+    DELETE_REVIEWS_REQUEST,
+    DELETE_REVIEWS_SUCCESS,
+    DELETE_REVIEWS_RESET,
+    DELETE_REVIEWS_FAIL,
 } from "../constants/serviceConstants";
 
 export const servicesReducer = (state = { services: [] }, action) => {
@@ -200,25 +200,25 @@ export const serviceDetailsReducer = (state = { service: {} }, action) => {
 
 export const newReviewsReducer = (state = {}, action) => {
     switch (action.type) {
-        case NEW_REVIEW_REQUEST:
+        case NEW_REVIEWS_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
 
-        case NEW_REVIEW_SUCCESS:
+        case NEW_REVIEWS_SUCCESS:
             return {
                 loading: false,
                 success: action.payload,
             };
 
-        case NEW_REVIEW_FAIL:
+        case NEW_REVIEWS_FAIL:
             return {
                 ...state,
                 error: action.payload,
             };
 
-        case NEW_REVIEW_RESET:
+        case NEW_REVIEWS_RESET:
             return {
                 ...state,
                 success: false,
@@ -268,26 +268,26 @@ export const serviceReviewsReducer = (state = { review: [] }, action) => {
 
 export const reviewsReducer = (state = {}, action) => {
     switch (action.type) {
-        case DELETE_REVIEW_REQUEST:
+        case DELETE_REVIEWS_REQUEST:
             return {
                 ...state,
                 loading: true,
             };
 
-        case DELETE_REVIEW_SUCCESS:
+        case DELETE_REVIEWS_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 isDeleted: action.payload,
             };
 
-        case DELETE_REVIEW_FAIL:
+        case DELETE_REVIEWS_FAIL:
             return {
                 ...state,
                 error: action.payload,
             };
 
-        case DELETE_REVIEW_RESET:
+        case DELETE_REVIEWS_RESET:
             return {
                 ...state,
                 isDeleted: false,

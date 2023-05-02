@@ -1,6 +1,9 @@
 import axios from "axios";
 
 import {
+    ALL_SERVICES_REQUEST,
+    ALL_SERVICES_SUCCESS,
+    ALL_SERVICES_FAIL,
     ADMIN_SERVICES_REQUEST,
     ADMIN_SERVICES_SUCCESS,
     ADMIN_SERVICES_FAIL,
@@ -16,8 +19,47 @@ import {
     DELETE_SERVICE_REQUEST,
     DELETE_SERVICE_SUCCESS,
     DELETE_SERVICE_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    NEW_REVIEWS_REQUEST,
+    NEW_REVIEWS_SUCCESS,
+    NEW_REVIEWS_FAIL,
+    GET_REVIEWS_REQUEST,
+    GET_REVIEWS_SUCCESS,
+    GET_REVIEWS_FAIL,
+    DELETE_REVIEWS_REQUEST,
+    DELETE_REVIEWS_SUCCESS,
+    DELETE_REVIEWS_RESET,
+    DELETE_REVIEWS_FAIL,
 } from "../constants/serviceConstants";
+
+export const getServices =
+    (keyword = "", currentPage = 1, price, category = "") =>
+        async (dispatch) => {
+            try {
+                dispatch({
+                    type: ALL_SERVICES_REQUEST,
+                });
+                // let link = `/api/v1/products?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}`;
+                let link = `/api/v1/services`;
+
+                // if (category) {
+                //     link = `/api/v1/services?keyword=${keyword}&page=${currentPage}&price[lte]=${price[1]}&price[gte]=${price[0]}&category=${category}`;
+                // }
+
+                const { data } = await axios.get(link);
+                console.log(data);
+                console.log(link);
+                dispatch({
+                    type: ALL_SERVICES_SUCCESS,
+                    payload: data,
+                });
+            } catch (error) {
+                dispatch({
+                    type: ALL_SERVICES_FAIL,
+                    payload: error.response.data.message,
+                });
+            }
+        };
 
 export const getAdminServices = () => async (dispatch) => {
     try {
@@ -138,4 +180,74 @@ export const clearErrors = () => async (dispatch) => {
     dispatch({
         type: CLEAR_ERRORS,
     });
+};
+
+export const newReview = (reviewData) => async (dispatch) => {
+    try {
+        dispatch({ type: NEW_REVIEWS_REQUEST });
+
+        const config = {
+            headers: {
+                "Content-Type": "application/json",
+            },
+        };
+
+        const { data } = await axios.put(`/api/v1/create/review`, reviewData, config);
+
+        dispatch({
+            type: NEW_REVIEWS_SUCCESS,
+
+            payload: data.success,
+        });
+    } catch (error) {
+        dispatch({
+            type: NEW_REVIEWS_FAIL,
+
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const getServiceReviews = (id) => async (dispatch) => {
+    try {
+        dispatch({ type: GET_REVIEWS_REQUEST });
+
+        const { data } = await axios.get(`/api/v1/reviews?id=${id}`);
+
+        dispatch({
+            type: GET_REVIEWS_SUCCESS,
+
+            payload: data.reviews,
+        });
+    } catch (error) {
+        dispatch({
+            type: GET_REVIEWS_FAIL,
+
+            payload: error.response.data.message,
+        });
+    }
+};
+
+export const deleteReview = (id, serviceId) => async (dispatch) => {
+    try {
+        dispatch({ type: DELETE_REVIEWS_REQUEST });
+
+        const { data } = await axios.delete(
+            `/api/v1/reviews?id=${id}&serviceId=${serviceId}`
+        );
+
+        dispatch({
+            type: DELETE_REVIEWS_SUCCESS,
+
+            payload: data.success,
+        });
+    } catch (error) {
+        console.log(error.response);
+
+        dispatch({
+            type: DELETE_REVIEWS_FAIL,
+
+            payload: error.response.data.message,
+        });
+    }
 };
