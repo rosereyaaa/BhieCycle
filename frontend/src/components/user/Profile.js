@@ -125,7 +125,7 @@ const Profile = () => {
 
                                         {user.role !== "admin" && (
                                             <Link to="/orders/me" className="btn btn-danger btn-block mt-5">
-                                                My Orders
+                                                My Order
                                             </Link>
                                         )}
 

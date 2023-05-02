@@ -16,7 +16,7 @@ const OrderSuccess = () => {
           <div className="col-6 mt-5 text-center">
             <img
               className="my-5 img-fluid d-block mx-auto"
-              src="/images/order_success.png"
+              src="/images/ordersuccess.gif"
               alt="Order Success"
               width="200"
               height="200"
