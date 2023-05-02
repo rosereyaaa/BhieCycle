@@ -372,11 +372,9 @@ function Register() {
                         <MDBCol md='10' lg='6' className='order-1 order-lg-2 d-flex align-items-center'>
                             <MDBCardImage src='https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp' fluid />
                         </MDBCol>
-
                     </MDBRow>
                 </MDBCardBody>
             </MDBCard>
-
         </MDBContainer>
     );
 }
