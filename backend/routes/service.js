@@ -19,7 +19,7 @@ const {
 
 //Admin Access
 router.post("/service/new", isAuthenticatedUser, authorizeRoles("admin"), upload.array("images", 10), newService);
-router.get("/services", isAuthenticatedUser, authorizeRoles("admin"), getService);
+router.get("/services", getService);
 router.get("/service/:id", isAuthenticatedUser, authorizeRoles("admin"), getSingleService);
 router.put("/update/service/:id", isAuthenticatedUser, authorizeRoles("admin"), upload.array("images", 10), updateService);
 router.delete("/remove/service/:id", isAuthenticatedUser, authorizeRoles("admin"), deleteService);

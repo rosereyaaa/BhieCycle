@@ -22,6 +22,15 @@ const Profile = () => {
                             <MetaData title={"Your Profile"} />
 
                             {/* <h2 className="mt-5 ml-5">My Profile</h2> */}
+                            <br/><br/><br/>
+                            <img src="/images/profile-banner.gif" width="auto" style={{display: 'block', marginLeft: 'auto', marginRight: 'auto'}} /><br/>
+                            <hr
+                                style={{
+                                    color: "#67568C",
+                                    backgroundColor: "#67568C",
+                                    height: 5
+                                }}
+                            />
 
                             <div className="row justify-content-around mt-5 user-info">
                                 <div className="col-12 col-md-3">
@@ -69,6 +78,7 @@ const Profile = () => {
                                     </Link>
                                 </div>
                             </div>
+                            <br/><br/>
                         </Fragment>
                     )}
                 </Fragment>
@@ -125,7 +135,7 @@ const Profile = () => {
 
                                         {user.role !== "admin" && (
                                             <Link to="/orders/me" className="btn btn-danger btn-block mt-5">
-                                                My Order
+                                                My Orders
                                             </Link>
                                         )}
 

@@ -93,9 +93,10 @@ const ShopService = ({ match }) => {
                                     </div>
                                 </Fragment>
                             ) : (
-                                services.map((service) => (
+                                services && services.map((service) => (
                                     <Service key={service._id} service={service} col={3} />
-                                ))
+                                 ))
+                                 
                             )}
                         </div>
                     </section>

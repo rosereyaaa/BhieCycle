@@ -36,7 +36,7 @@ const Payment = () => {
 
   const { user } = useSelector((state) => state.auth);
 
-  const { cartItems, shippingInfo } = useSelector((state) => state.cart);
+  const { cartItemss, shippingInfos } = useSelector((state) => state.carts);
 
   const { error } = useSelector((state) => state.newOrder);
 
@@ -49,9 +49,9 @@ const Payment = () => {
   }, [dispatch, error]);
 
   const order = {
-    orderItems: cartItems,
+    orderItemss: cartItemss,
 
-    shippingInfo,
+    shippingInfos,
   };
 
   const orderInfo = JSON.parse(sessionStorage.getItem("orderInfo"));
