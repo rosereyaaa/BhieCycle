@@ -1,1 +1,4 @@
-#BhieCycle
+# BhieCycle
+
+# Project Overview
+This web development project, part of the Programming Language - Design and Implementation course, is designed for bike enthusiasts. Users can create accounts and purchase bike accessories and services. 
